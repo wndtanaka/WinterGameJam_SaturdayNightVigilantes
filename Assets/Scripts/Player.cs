@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public PlayerType playerType;
 
     public float health;
     float maxHealth = 100;
@@ -24,15 +25,18 @@ public class Player : MonoBehaviour
         health = maxHealth;
         stamina = maxStamina;
 
-        if (this.gameObject.tag == "Player One")
+        switch (playerType)
         {
-            healthBar = GameObject.FindGameObjectWithTag("Player One UI").transform.GetChild(0).GetChild(0).GetChild(0).GetComponentInChildren<Image>();
-            staminaBar = GameObject.FindGameObjectWithTag("Player One UI").transform.GetChild(1).GetChild(0).GetChild(0).GetComponentInChildren<Image>();
-        }
-        if (this.gameObject.tag == "Player Two")
-        {
-            healthBar = GameObject.FindGameObjectWithTag("Player Two UI").transform.GetChild(0).GetChild(0).GetChild(0).GetComponentInChildren<Image>();
-            staminaBar = GameObject.FindGameObjectWithTag("Player Two UI").transform.GetChild(1).GetChild(0).GetChild(0).GetComponentInChildren<Image>();
+            case PlayerType.PlayerOne:
+                healthBar = GameObject.FindGameObjectWithTag("Player One UI").transform.GetChild(0).GetChild(0).GetChild(0).GetComponentInChildren<Image>();
+                staminaBar = GameObject.FindGameObjectWithTag("Player One UI").transform.GetChild(1).GetChild(0).GetChild(0).GetComponentInChildren<Image>();
+                break;
+            case PlayerType.PlayerTwo:
+                healthBar = GameObject.FindGameObjectWithTag("Player Two UI").transform.GetChild(0).GetChild(0).GetChild(0).GetComponentInChildren<Image>();
+                staminaBar = GameObject.FindGameObjectWithTag("Player Two UI").transform.GetChild(1).GetChild(0).GetChild(0).GetComponentInChildren<Image>();
+                break;
+            default:
+                break;
         }
     }
 
@@ -40,17 +44,31 @@ public class Player : MonoBehaviour
     void Update()
     {
         #region Debug
-        if (Input.GetKeyDown(KeyCode.Z))
+        switch (playerType)
         {
-            TakeDamage();
-            StaminaCost();
+            case PlayerType.PlayerOne:
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    TakeDamage(damage);
+                    StaminaCost(20);
+                }
+                break;
+            case PlayerType.PlayerTwo:
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    TakeDamage(damage);
+                    StaminaCost(20);
+                }
+                break;
+            default:
+                break;
         }
         #endregion
         if (health < maxHealth)
         {
             health += 1 * Time.deltaTime;
         }
-        else if (health <= 0)
+        if (health <= 0)
         {
             Debug.Log("Dead");
         }
@@ -58,18 +76,22 @@ public class Player : MonoBehaviour
         {
             stamina += 3 * Time.deltaTime;
         }
+        if (stamina <= 0)
+        {
+            stamina = 0;
+        }
 
 
         healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, health / maxHealth, 5 * Time.deltaTime);
         staminaBar.fillAmount = Mathf.Lerp(staminaBar.fillAmount, stamina / maxStamina, 5 * Time.deltaTime);
     }
 
-    void TakeDamage()
+    void TakeDamage(float amount)
     {
-        health -= damage;
+        health -= amount;
     }
-    void StaminaCost()
+    void StaminaCost(float amount)
     {
-        stamina -= 20;
+        stamina -= amount;
     }
 }
