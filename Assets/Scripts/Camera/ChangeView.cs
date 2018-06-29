@@ -10,19 +10,38 @@ public class ChangeView : MonoBehaviour
 
     public float maxZoom = 10; // maximum distance the camera can zoom out to
     public float minZoom = 5; // minimum distance the camera can zoom in to
-    
-    public float positionOne = 10f, positionTwo = 20f; // Amount of Zoom 
+
+    public float positionOne = 10.01f, positionTwo = 20f; // Amount of Zoom 
+    public float heightOne = 2f, heightTwo = 1.5f;
     public float lerpTime = 12; // Lerp time Multiplier
-    
+
     private GameObject playerOne;
     private GameObject playerTwo;
+
+    /*TESTING*/
+    private const float DISTANCE_MARGIN = 1.0f;
+
+    private Vector3 middlePoint;
+    private float distanceFromMiddlePoint;
+    private float distanceBetweenPlayers;
+    private float cameraDistance;
+    private float aspectRatio;
+    private float fov;
+    private float tanFov;
+
+    /*TESTING*/
 
 
     void Start()
     {
-        
+
         playerOne = GameObject.FindWithTag("Player One");
         playerTwo = GameObject.FindWithTag("Player Two");
+
+
+        aspectRatio = Screen.width / Screen.height;
+        tanFov = Mathf.Tan(Mathf.Deg2Rad * Camera.main.fieldOfView / 2.0f);
+
     }
 
     // Update is called once per frame
@@ -31,28 +50,45 @@ public class ChangeView : MonoBehaviour
         //View Changing
         if (isTraining)
         {
-            transform.position = Vector3.Lerp(transform.position, Vector3.back * positionTwo, lerpTime * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(0, heightTwo, -positionTwo), lerpTime * Time.deltaTime);
         }
-        else if (!inFight && !isTraining)
+        else
         {
-            transform.position = Vector3.Lerp(transform.position, Vector3.back * positionOne, lerpTime * Time.deltaTime);
+            if (!inFight)
+            {
+                transform.position = Vector3.Lerp(transform.position, new Vector3(0, heightOne, -positionOne), lerpTime * Time.deltaTime);
+            }
+            else
+            {
+                Vector3 newCameraPos = Camera.main.transform.position;
+                newCameraPos.x = middlePoint.x;
+                Camera.main.transform.position = newCameraPos;
+
+                // Find the middle point between players.
+                Vector3 vectorBetweenPlayers = playerTwo.transform.position - playerOne.transform.position;
+                middlePoint = playerOne.transform.position + 0.5f * vectorBetweenPlayers;
+
+                // Calculate the new distance.
+                distanceBetweenPlayers = vectorBetweenPlayers.magnitude;
+                cameraDistance = (distanceBetweenPlayers / 2.0f / aspectRatio) / tanFov;
+
+                if (cameraDistance <= minZoom)
+                {
+                    cameraDistance = minZoom;
+                }
+                if (cameraDistance >= maxZoom)
+                {
+                    cameraDistance = maxZoom;
+                }
+                // Set camera to new position.
+                Vector3 dir = (Camera.main.transform.position - middlePoint).normalized;
+                Camera.main.transform.position = middlePoint + dir * (cameraDistance + DISTANCE_MARGIN);
+            }
         }
-        
+
+
         //Character Zooming
-        float zoom = Vector3.Distance(playerOne.transform.position, playerTwo.transform.position);
-        Debug.Log(zoom);
-        if (inFight)
-        {
-            transform.position = new Vector3(0, 0, -zoom);
-            if (transform.position.z >= minZoom)
-            {
-                transform.position = Vector3.back * minZoom;
-            }
-            if (transform.position.z <= maxZoom)
-            {
-                transform.position = Vector3.back * maxZoom;
-            }
-        }
+
 
 
 
