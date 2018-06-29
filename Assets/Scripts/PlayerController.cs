@@ -21,7 +21,18 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Debug
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            GameManager.instance.BreakTime();
+        }
+        if (Input.GetKey(KeyCode.Alpha2))
+        {
+            GameManager.instance.GameTime();
+        }
+        #endregion
         PlayerMovement();
+        PlayerPunch();
     }
 
     void PlayerMovement()
@@ -62,9 +73,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        PlayerPunch();
-
-        transform.LookAt(otherPlayer.transform);
+        if (otherPlayer != null)
+        {
+            transform.LookAt(otherPlayer.transform);
+        }
     }
 
     void PlayerPunch()
