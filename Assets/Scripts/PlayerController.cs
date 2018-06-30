@@ -194,7 +194,7 @@ public class PlayerController : MonoBehaviour
                             playerOne.SetBool("isHitting", true);
 
                             playerOne.SetBool("isHittingLeft", true);
-                            player.StaminaCost(15);
+                            player.StaminaCost(2);
                             playerIsPunching = true;
                             l_hasPunchReset = false;
                         }
@@ -203,7 +203,6 @@ public class PlayerController : MonoBehaviour
                             playerOne.SetBool("isHitting", false);
                             playerOne.SetBool("isHittingLeft", false);
                         }
-                        player.StaminaCost(2);
                     }
                     else
                     {
@@ -242,7 +241,7 @@ public class PlayerController : MonoBehaviour
                             playerOne.SetBool("isHitting", true);
 
                             playerOne.SetBool("isHittingRight", true);
-                            player.StaminaCost(15);
+                            player.StaminaCost(2);
                             playerIsPunching = true;
                             r_hasPunchReset = false;
                         }
@@ -292,19 +291,17 @@ public class PlayerController : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.Keypad3) && player.stamina >= 15)
                         {
                             Player player = GetComponent<Player>();
+                            playerTwo.SetBool("isHitting", true);
 
-
-                            playerOne.SetBool("isHitting", true);
-
-                            playerOne.SetBool("isHittingLeft", true);
-                            player.StaminaCost(15);
+                            playerTwo.SetBool("isHittingLeft", true);
+                            player.StaminaCost(2);
                             playerIsPunching = true;
                             l_hasPunchReset = false;
                         }
                         else
                         {
-                            playerOne.SetBool("isHitting", false);
-                            playerOne.SetBool("isHittingLeft", false);
+                            playerTwo.SetBool("isHitting", false);
+                            playerTwo.SetBool("isHittingLeft", false);
                         }
                     }
                     else
@@ -344,9 +341,10 @@ public class PlayerController : MonoBehaviour
                                 Player player = GetComponent<Player>();
                                 playerTwo.SetBool("isHitting", true);
                                 playerTwo.SetBool("isHittingRight", true);
-                                player.StaminaCost(15);
+                                player.StaminaCost(2);
                                 playerIsPunching = true;
                                 r_hasPunchReset = false;
+
                             }
                             else
                             {
