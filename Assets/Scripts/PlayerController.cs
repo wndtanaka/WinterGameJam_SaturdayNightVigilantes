@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
                 //transform.Translate(new Vector3(inputH, 0, inputV) * speed * Time.deltaTime);
                 if (!playerIsPunching)
                 {
-                    if (Input.GetKey(KeyCode.D))
+                    if (Input.GetKey(KeyCode.W))
                     {
                         if (playerDistance >= 1.15f)
                         {
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
                         //rb.AddForce(transform.forward * speed * Time.deltaTime);
                     }
 
-                    if (Input.GetKey(KeyCode.A))
+                    if (Input.GetKey(KeyCode.S))
                     {
                         if (blueBackDistance >= 1.3f)
                         {
@@ -81,12 +81,12 @@ public class PlayerController : MonoBehaviour
                         //rb.AddForce(-transform.forward * speed * Time.deltaTime);
                     }
 
-                    if (Input.GetKey(KeyCode.W))
+                    if (Input.GetKey(KeyCode.A))
                     {
                         transform.Translate(-Vector3.right * speed * Time.deltaTime);
                     }
 
-                    if (Input.GetKey(KeyCode.S))
+                    if (Input.GetKey(KeyCode.D))
                     {
                         transform.Translate(Vector3.right * speed * Time.deltaTime);
                     }
@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
                 //transform.Translate(new Vector3(inputH, 0, inputV) * speed * Time.deltaTime);
                 if (!playerIsPunching)
                 {
-                    if (Input.GetKey(KeyCode.LeftArrow))
+                    if (Input.GetKey(KeyCode.UpArrow))
                     {
                         if (playerDistance >= 1.15f)
                         {
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
                         }
                     }
 
-                    if (Input.GetKey(KeyCode.RightArrow))
+                    if (Input.GetKey(KeyCode.DownArrow))
                     {
                         if (redBackDistance >= 1.3f)
                         {
@@ -120,12 +120,12 @@ public class PlayerController : MonoBehaviour
                         }
                     }
 
-                    if (Input.GetKey(KeyCode.UpArrow))
+                    if (Input.GetKey(KeyCode.RightArrow))
                     {
                         transform.Translate(Vector3.right * speed * Time.deltaTime);
                     }
 
-                    if (Input.GetKey(KeyCode.DownArrow))
+                    if (Input.GetKey(KeyCode.LeftArrow))
                     {
                         transform.Translate(-Vector3.right * speed * Time.deltaTime);
                     }

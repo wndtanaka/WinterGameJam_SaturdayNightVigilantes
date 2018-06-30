@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Punch : MonoBehaviour
 {
+    public PlayerType playerType;
 
     // Use this for initialization
     void Start()
@@ -21,7 +22,15 @@ public class Punch : MonoBehaviour
     {
         if (other.gameObject.name == "Score")
         {
-            Debug.Log("Score!");
+            switch (playerType)
+            {
+                case (PlayerType.PlayerOne):
+                    Debug.Log("Blue Hits!!!");
+                break;
+                case (PlayerType.PlayerTwo):
+                    Debug.Log("Red Hits!!!");
+                    break;
+            }
         }
     }
 }
