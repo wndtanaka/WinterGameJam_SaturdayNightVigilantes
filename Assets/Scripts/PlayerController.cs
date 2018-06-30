@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
 
     public bool playerIsPunching, hasPunchReset;
 
+    public bool playerIsTouching;
+
+    public float playerDistance;
+
     // Use this for initialization
     void Start()
     {
@@ -37,6 +41,9 @@ public class PlayerController : MonoBehaviour
         //    GameManager.instance.GameTime();
         //}
         #endregion
+
+        playerDistance = Vector3.Distance(otherPlayer.transform.position, transform.position);
+
         PlayerMovement();
         PlayerPunch();
     }
@@ -52,15 +59,27 @@ public class PlayerController : MonoBehaviour
 
                 //transform.Translate(new Vector3(inputH, 0, inputV) * speed * Time.deltaTime);
 
-                if (Input.GetKey(KeyCode.D))
-                {
-                    transform.Translate(Vector3.forward * speed * Time.deltaTime);
-                }
+                    if (Input.GetKey(KeyCode.D))
+                    {
+                    if (playerDistance >= 1.2f)
+                    {
+                        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                    }
+                        //rb.AddForce(transform.forward * speed * Time.deltaTime);
+                    }
 
-                if (Input.GetKey(KeyCode.A))
+                    if (Input.GetKey(KeyCode.A))
+                    {
+                        transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+
+                        //rb.AddForce(-transform.forward * speed * Time.deltaTime);
+                    }
+                
+
+                /*if (!Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.D))
                 {
-                    transform.Translate(-Vector3.forward * speed * Time.deltaTime);
-                }
+                    rb.velocity = Vector3.zero;
+                }*/
                 break;
             case PlayerType.PlayerTwo:
                 //inputH = Input.GetAxis("Horiz2");
@@ -70,7 +89,10 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.LeftArrow))
                 {
-                    transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                    if (playerDistance >= 1.2f)
+                    {
+                        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                    }
                 }
 
                 if (Input.GetKey(KeyCode.RightArrow))
@@ -96,7 +118,7 @@ public class PlayerController : MonoBehaviour
 
                 if (hasPunchReset)
                 {
-                    rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed/2 * Time.deltaTime);
+                    rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
 
                     if (Input.GetKeyDown(KeyCode.H))
                     {
