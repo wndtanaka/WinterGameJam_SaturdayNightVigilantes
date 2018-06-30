@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour
     float breakTime = 10;
     public Text breakTimeText;
 
+    public CanvasGroup playerOnePanel;
+    public CanvasGroup playerTwoPanel;
+
+    [SerializeField]
+    Animator anim;
+
     bool isRoundStart = true;
     bool isBreakStart = false;
 
@@ -37,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         if (isRoundStart)
         {
+            anim.SetBool("OpenBreakUI", false);
             if (gameTime > 0)
             {
                 gameTime -= Time.deltaTime;
@@ -50,9 +57,11 @@ public class GameManager : MonoBehaviour
         }
         if (isBreakStart)
         {
+            anim.SetBool("OpenBreakUI",true);
             if (breakTime > 0)
             {
                 breakTime -= Time.deltaTime;
+                TrainingChoices();
             }
             else
             {
@@ -73,5 +82,45 @@ public class GameManager : MonoBehaviour
         breakUI.blocksRaycasts = breakUI.blocksRaycasts == true ? false : true;
         gameUI.alpha = gameUI.alpha > 0 ? 0 : 1;
         gameUI.blocksRaycasts = gameUI.blocksRaycasts == true ? false : true;
+    }
+
+    public void TrainingChoices()
+    {
+        #region Training Selection for Player One
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            PlayerOne.Instance.TrainingResult(GameChoice.PullUp, 10);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            PlayerOne.Instance.TrainingResult(GameChoice.Treadmill, 10);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            PlayerOne.Instance.TrainingResult(GameChoice.PunchingBag, 10);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            PlayerOne.Instance.TrainingResult(GameChoice.Rest, 0);
+        }
+        #endregion
+        #region Training Selection for Player Two
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            PlayerTwo.Instance.TrainingResult(GameChoice.PullUp, 10);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            PlayerTwo.Instance.TrainingResult(GameChoice.Treadmill, 10);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            PlayerTwo.Instance.TrainingResult(GameChoice.PunchingBag, 10);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            PlayerTwo.Instance.TrainingResult(GameChoice.Rest, 0);
+        }
+        #endregion
     }
 }

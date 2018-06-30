@@ -53,22 +53,6 @@ public class Player : MonoBehaviour
                     TakeDamage(damage);
                     StaminaCost(20);
                 }
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    TrainingResult(GameChoice.PullUp, 10);
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha2))
-                {
-                    TrainingResult(GameChoice.Treadmill, 10);
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha3))
-                {
-                    TrainingResult(GameChoice.PunchingBag,10);
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha4))
-                {
-                    TrainingResult(GameChoice.Rest, 10);
-                }
                 break;
             case PlayerType.PlayerTwo:
                 if (Input.GetKeyDown(KeyCode.X))
@@ -98,58 +82,8 @@ public class Player : MonoBehaviour
             stamina = 0;
         }
 
-
         healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, health / maxHealth, 5 * Time.deltaTime);
         staminaBar.fillAmount = Mathf.Lerp(staminaBar.fillAmount, stamina / maxStamina, 5 * Time.deltaTime);
-    }
-
-    public void TrainingResult(GameChoice gameChoice, float amount)
-    {
-        switch (playerType)
-        {
-            case PlayerType.PlayerOne:
-                switch (gameChoice)
-                {
-                    case GameChoice.PullUp:
-                        range += amount;
-                        break;
-                    case GameChoice.Treadmill:
-                        speed += amount;
-                        break;
-                    case GameChoice.PunchingBag:
-                        damage += amount;
-                        break;
-                    case GameChoice.Rest:
-                        health += 50;
-                        stamina += 50;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case PlayerType.PlayerTwo:
-                switch (gameChoice)
-                {
-                    case GameChoice.PullUp:
-                        range += amount;
-                        break;
-                    case GameChoice.Treadmill:
-                        speed += amount;
-                        break;
-                    case GameChoice.PunchingBag:
-                        damage += amount;
-                        break;
-                    case GameChoice.Rest:
-                        health += 50;
-                        stamina += 50;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
-        }
     }
 
     public void TakeDamage(float amount)
