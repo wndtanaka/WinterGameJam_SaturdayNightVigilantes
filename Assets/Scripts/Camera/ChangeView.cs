@@ -38,7 +38,7 @@ public class ChangeView : MonoBehaviour
 
         playerOne = GameObject.FindWithTag("Player One");
         playerTwo = GameObject.FindWithTag("Player Two");
-        cameraPivot = GameObject.Find("Camera Pivot").transform;
+        //cameraPivot = GameObject.Find("Camera Pivot").transform;
 
 
         aspectRatio = Screen.width / Screen.height;
@@ -82,7 +82,7 @@ public class ChangeView : MonoBehaviour
                 {
                     cameraDistance = maxZoom;
                 }
-                cameraPivot.position = Vector3.Lerp(cameraPivot.position, middlePoint, lerpTime * Time.deltaTime);
+                //cameraPivot.position = Vector3.Lerp(cameraPivot.position, middlePoint, lerpTime * Time.deltaTime);
                 
 
                 // Set camera to new position.

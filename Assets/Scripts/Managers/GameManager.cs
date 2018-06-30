@@ -8,11 +8,6 @@ public class GameManager : MonoBehaviour
     // making GameManager a singleton, so accessible easily using instance
     public static GameManager instance;
 
-    [SerializeField]
-    CanvasGroup breakUI;
-    [SerializeField]
-    CanvasGroup gameUI;
-
     [Header("Game Time")]
     [SerializeField]
     float gameTime = 60;
@@ -23,11 +18,22 @@ public class GameManager : MonoBehaviour
     float breakTime = 10;
     public Text breakTimeText;
 
+    [Header("Canvas Group")]
+    [SerializeField]
+    CanvasGroup breakUI;
+    [SerializeField]
+    CanvasGroup gameUI;
     public CanvasGroup playerOnePanel;
     public CanvasGroup playerTwoPanel;
 
     [SerializeField]
     Animator anim;
+
+    [Header("Training Camera")]
+    public Camera CameraOne;
+    public Camera CameraTwo;
+
+    public TrainingMode[] trainingMode;
 
     bool isRoundStart = true;
     bool isBreakStart = false;
@@ -132,5 +138,11 @@ public class GameManager : MonoBehaviour
     public void StartTraining()
     {
 
+    }
+
+    [System.Serializable]
+    public class TrainingMode
+    {
+        Transform trainingMode;
     }
 }
