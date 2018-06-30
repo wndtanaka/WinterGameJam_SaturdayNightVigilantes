@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
         health = maxHealth;
         stamina = maxStamina;
 
+        // getting the Health Bar and Stamina Bar of a players referring to their enums
         switch (playerType)
         {
             case PlayerType.PlayerOne:
