@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ChangeView : MonoBehaviour
 {
-
     public bool inFight = false; // If player is in fight change this
     public bool isTraining = false;
 

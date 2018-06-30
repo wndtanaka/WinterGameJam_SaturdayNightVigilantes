@@ -92,8 +92,6 @@ public class TrainingGame : MonoBehaviour {
 
     void Update()
     {
-
-
         if (_view.isTraining)
         {
             if (choiceSelected)
