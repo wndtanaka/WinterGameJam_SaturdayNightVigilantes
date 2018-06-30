@@ -10,7 +10,7 @@ public class Punch : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Score")
+        if (other.gameObject.name == "helmet")
         {
             player = other.GetComponentInParent<Player>();
             player.TakeDamage(10);

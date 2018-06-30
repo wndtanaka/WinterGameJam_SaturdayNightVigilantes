@@ -185,9 +185,16 @@ public class PlayerController : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.H))
                         {
                             Player player = GetComponent<Player>();
+                            playerOne.SetBool("isHitting", true);
+                            playerOne.SetBool("isHittingRight", true);
                             player.StaminaCost(15);
                             playerIsPunching = true;
                             hasPunchReset = false;
+                        }
+                        else
+                        {
+                            playerOne.SetBool("isHitting", false);
+                            playerOne.SetBool("isHittingRight", false);
                         }
                     }
                 }
@@ -225,9 +232,16 @@ public class PlayerController : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.Keypad3))
                         {
                             Player player = GetComponent<Player>();
+                            playerTwo.SetBool("isHitting", true);
+                            playerTwo.SetBool("isHittingRight", true);
                             player.StaminaCost(15);
                             playerIsPunching = true;
                             hasPunchReset = false;
+                        }
+                        else
+                        {
+                            playerTwo.SetBool("isHitting", false);
+                            playerTwo.SetBool("isHittingRight", false);
                         }
                     }
                 }
