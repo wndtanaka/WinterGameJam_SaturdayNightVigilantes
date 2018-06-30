@@ -179,7 +179,6 @@ public class PlayerController : MonoBehaviour
         {
             case PlayerType.PlayerOne:
 
-                isHittingLeft = !isHittingLeft;
                 if (isHittingLeft)
                 {
                     if (l_hasPunchReset)
@@ -197,6 +196,7 @@ public class PlayerController : MonoBehaviour
                             player.StaminaCost(2);
                             playerIsPunching = true;
                             l_hasPunchReset = false;
+                            isHittingLeft = Random.value > 0.5f;
                         }
                         else
                         {
@@ -244,6 +244,7 @@ public class PlayerController : MonoBehaviour
                             player.StaminaCost(2);
                             playerIsPunching = true;
                             r_hasPunchReset = false;
+                            isHittingLeft = Random.value > 0.5f;
                         }
                         else
                         {
@@ -280,7 +281,6 @@ public class PlayerController : MonoBehaviour
 
                 break;
             case PlayerType.PlayerTwo:
-                isHittingLeft = !isHittingLeft;
 
                 if (isHittingLeft)
                 {
@@ -297,6 +297,7 @@ public class PlayerController : MonoBehaviour
                             player.StaminaCost(2);
                             playerIsPunching = true;
                             l_hasPunchReset = false;
+                            isHittingLeft = Random.value > 0.5f;
                         }
                         else
                         {
@@ -344,7 +345,7 @@ public class PlayerController : MonoBehaviour
                                 player.StaminaCost(2);
                                 playerIsPunching = true;
                                 r_hasPunchReset = false;
-
+                                isHittingLeft = Random.value > 0.5f;
                             }
                             else
                             {
