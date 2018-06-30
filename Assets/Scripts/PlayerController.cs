@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
                     if (Input.GetKey(KeyCode.LeftArrow))
                     {
-                        ///transform.Translate(-Vector3.right * speed * Time.deltaTime);
+                        transform.Translate(-Vector3.right * speed * Time.deltaTime);
 
                         //transform.LookAt(otherPlayer.transform);
                     }
