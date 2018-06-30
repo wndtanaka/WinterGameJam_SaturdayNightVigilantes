@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
 
     public bool playerIsTouching;
 
-    public float playerDistance;
+    public float playerDistance, redBackDistance, blueBackDistance;
+    public GameObject redBackBorder, blueBackBorder;
 
     // Use this for initialization
     void Start()
@@ -43,6 +44,8 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         playerDistance = Vector3.Distance(otherPlayer.transform.position, transform.position);
+        redBackDistance = Vector3.Distance(redBackBorder.transform.position, transform.position);
+        blueBackDistance = Vector3.Distance(blueBackBorder.transform.position, transform.position);
 
         PlayerMovement();
         PlayerPunch();
@@ -61,17 +64,19 @@ public class PlayerController : MonoBehaviour
 
                     if (Input.GetKey(KeyCode.D))
                     {
-                    if (playerDistance >= 1.2f)
-                    {
-                        transform.Translate(Vector3.forward * speed * Time.deltaTime);
-                    }
+                        if (playerDistance >= 1.15f)
+                        {
+                            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                        }
                         //rb.AddForce(transform.forward * speed * Time.deltaTime);
                     }
 
                     if (Input.GetKey(KeyCode.A))
                     {
-                        transform.Translate(-Vector3.forward * speed * Time.deltaTime);
-
+                        if (blueBackDistance >= 1.3f)
+                        {
+                            transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+                        }
                         //rb.AddForce(-transform.forward * speed * Time.deltaTime);
                     }
                 
@@ -89,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.LeftArrow))
                 {
-                    if (playerDistance >= 1.2f)
+                    if (playerDistance >= 1.15f)
                     {
                         transform.Translate(Vector3.forward * speed * Time.deltaTime);
                     }
@@ -97,7 +102,10 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.RightArrow))
                 {
-                    transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+                    if (redBackDistance >= 1.3f)
+                    {
+                        transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+                    }
                 }
                 break;
             default:
