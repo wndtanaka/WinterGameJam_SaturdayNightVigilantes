@@ -27,6 +27,13 @@ public class TrainingGame : MonoBehaviour {
     public bool player1Lost, player1Won, treadStart, player2Lost, player2Won;
     public float trainingTimer;
 
+    [Header("PunchingBag")]
+    public float bagMove1;
+    public float bagMove2, bagUp1;
+    public float bagNeedle1, bagNeedle2;
+    public bool bagBottom1, bagTop1, bagBottom2, bagTop2, bagStart1, bagStart2, bagHit;
+
+
     public enum O_gamechoice // Player One's game choice enum
     {
         pullup = 0,
@@ -50,6 +57,7 @@ public class TrainingGame : MonoBehaviour {
 
         _view = GameObject.FindWithTag("Main Camera").GetComponent<ChangeView>();
 
+        #region Treadmill Starts
         treadWinScore1 = 0f;
         treadRunUp1 = 10f;
         runDown1 = 40f;
@@ -61,10 +69,31 @@ public class TrainingGame : MonoBehaviour {
         treadStart = true;
 
         trainingTimer = 5f;
+        #endregion
+
+        #region PunchBag Starts
+        bagMove1 = 0f;
+        bagNeedle1 = 50f;
+        bagUp1 = 10f;
+
+        bagStart1 = true;
+        bagBottom1 = true;
+        bagTop1 = false;
+
+        bagMove2 = 0f;
+        bagNeedle2 = 50f;
+        bagUp1 = 10f;
+
+        bagStart2 = true;
+        bagBottom2 = true;
+        bagTop2 = false;
+        #endregion
     }
 
     void Update()
     {
+
+
         if (_view.isTraining)
         {
             if (choiceSelected)
@@ -72,9 +101,56 @@ public class TrainingGame : MonoBehaviour {
                 if (Input.GetKeyDown(o_Action))
                 {
                     //play animation etc for correct mini-game for Player one
-                    if(o_gamechoice == O_gamechoice.punchingBag)
+                    if (o_gamechoice == O_gamechoice.punchingBag)
                     {
                         //anim.setBool("o_isPunching", true);
+
+                        if (bagStart1 == true)
+                        {
+                            if (bagBottom1 == true && bagTop1 == false)
+                            {
+                                bagMove1 += bagUp1 * Time.deltaTime;
+                            }
+
+                            if (bagBottom1 == false && bagTop1 == true)
+                            {
+                                bagMove1 -= bagUp1 * Time.deltaTime;
+                            }
+
+                            if (bagMove1 >= 100f)
+                            {
+                                bagMove1 = 100f;
+
+                                bagBottom1 = false;
+                                bagTop1 = true;
+                            }
+
+                            if (bagMove1 <= 0f)
+                            {
+                                bagMove1 = 0f;
+
+                                bagBottom1 = true;
+                                bagTop1 = false;
+                            }
+
+                            if (Input.GetKeyDown(KeyCode.G))
+                            {
+                                bagStart1 = false;
+                            }
+                        }
+
+                        if (bagStart1 == false)
+                        {
+                            if (bagMove1 >= 45 && bagMove1 <= 55)
+                            {
+                                Debug.Log("Player Wins PUNCHING BAG!");
+                            }
+
+                            if (bagMove1 < 45 || bagMove1 > 55)
+                            {
+                                Debug.Log("Player Loses PUNCHING BAG!");
+                            }
+                        }
                     }
                     if (o_gamechoice == O_gamechoice.treadmill)
                     {
@@ -131,6 +207,53 @@ public class TrainingGame : MonoBehaviour {
                     {
                         t_Punch = !t_Punch;
                         //anim.setBool("t_Punch", t_Punch);
+
+                        if (bagStart2 == true)
+                        {
+                            if (bagBottom2 == true && bagTop2 == false)
+                            {
+                                bagMove2 += bagUp1 * Time.deltaTime;
+                            }
+
+                            if (bagBottom2 == false && bagTop2 == true)
+                            {
+                                bagMove2 -= bagUp1 * Time.deltaTime;
+                            }
+
+                            if (bagMove2 >= 100f)
+                            {
+                                bagMove2 = 100f;
+
+                                bagBottom2 = false;
+                                bagTop2 = true;
+                            }
+
+                            if (bagMove2 <= 0f)
+                            {
+                                bagMove2 = 0f;
+
+                                bagBottom2 = true;
+                                bagTop2 = false;
+                            }
+
+                            if (Input.GetKeyDown(KeyCode.G))
+                            {
+                                bagStart2 = false;
+                            }
+                        }
+
+                        if (bagStart2 == false)
+                        {
+                            if (bagMove2 >= 45 && bagMove2 <= 55)
+                            {
+                                Debug.Log("Player Wins PUNCHING BAG!");
+                            }
+
+                            if (bagMove2 < 45 || bagMove2 > 55)
+                            {
+                                Debug.Log("Player Loses PUNCHING BAG!");
+                            }
+                        }
                     }
                     if (t_gamechoice == T_gamechoice.treadmill)
                     {
@@ -263,7 +386,7 @@ public class TrainingGame : MonoBehaviour {
                 //anim.setBool("t_isPullingUp", true);
             }
         }
-        
+
     }
     void CheckPlayerOneSpeed()
     {
