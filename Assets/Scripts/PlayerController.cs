@@ -28,14 +28,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         #region Debug
-        if (Input.GetKey(KeyCode.Alpha1))
-        {
-            GameManager.instance.BreakTime();
-        }
-        if (Input.GetKey(KeyCode.Alpha2))
-        {
-            GameManager.instance.GameTime();
-        }
+        //if (Input.GetKey(KeyCode.Alpha1))
+        //{
+        //    GameManager.instance.BreakTime();
+        //}
+        //if (Input.GetKey(KeyCode.Alpha2))
+        //{
+        //    GameManager.instance.GameTime();
+        //}
         #endregion
         PlayerMovement();
         PlayerPunch();
