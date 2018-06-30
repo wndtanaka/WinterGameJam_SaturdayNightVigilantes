@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
+            CameraOne.transform.position = trainingMode[0].trainingMode[2].transform.position;
             PlayerOne.Instance.TrainingResult(GameChoice.PunchingBag, 10);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
@@ -143,6 +144,6 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     public class TrainingMode
     {
-        Transform trainingMode;
+        public Transform[] trainingMode;
     }
 }
