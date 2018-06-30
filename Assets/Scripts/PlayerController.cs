@@ -15,10 +15,15 @@ public class PlayerController : MonoBehaviour
 
     public bool playerIsPunching, hasPunchReset;
 
+    public bool playerIsTouching;
+
+    public float playerDistance, redBackDistance, blueBackDistance;
+    public GameObject redBackBorder, blueBackBorder;
+
     // Use this for initialization
     void Start()
     {
-        punchSpeed = 2f;
+        punchSpeed = 4f;
 
         playerIsPunching = false;
         hasPunchReset = true;
@@ -37,6 +42,11 @@ public class PlayerController : MonoBehaviour
         //    GameManager.instance.GameTime();
         //}
         #endregion
+
+        playerDistance = Vector3.Distance(otherPlayer.transform.position, transform.position);
+        redBackDistance = Vector3.Distance(redBackBorder.transform.position, transform.position);
+        blueBackDistance = Vector3.Distance(blueBackBorder.transform.position, transform.position);
+
         PlayerMovement();
         PlayerPunch();
     }
@@ -51,31 +61,74 @@ public class PlayerController : MonoBehaviour
                 //inputV = Input.GetAxis("Vertical");
 
                 //transform.Translate(new Vector3(inputH, 0, inputV) * speed * Time.deltaTime);
-
-                if (Input.GetKey(KeyCode.D))
+                if (!playerIsPunching)
                 {
-                    transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                    if (Input.GetKey(KeyCode.D))
+                    {
+                        if (playerDistance >= 1.15f)
+                        {
+                            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                        }
+                        //rb.AddForce(transform.forward * speed * Time.deltaTime);
+                    }
+
+                    if (Input.GetKey(KeyCode.A))
+                    {
+                        if (blueBackDistance >= 1.3f)
+                        {
+                            transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+                        }
+                        //rb.AddForce(-transform.forward * speed * Time.deltaTime);
+                    }
+
+                    if (Input.GetKey(KeyCode.W))
+                    {
+                        transform.Translate(-Vector3.right * speed * Time.deltaTime);
+                    }
+
+                    if (Input.GetKey(KeyCode.S))
+                    {
+                        transform.Translate(Vector3.right * speed * Time.deltaTime);
+                    }
                 }
 
-                if (Input.GetKey(KeyCode.A))
+                /*if (!Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.D))
                 {
-                    transform.Translate(-Vector3.forward * speed * Time.deltaTime);
-                }
+                    rb.velocity = Vector3.zero;
+                }*/
                 break;
             case PlayerType.PlayerTwo:
                 //inputH = Input.GetAxis("Horiz2");
                 //inputV = Input.GetAxis("Vert2");
 
                 //transform.Translate(new Vector3(inputH, 0, inputV) * speed * Time.deltaTime);
-
-                if (Input.GetKey(KeyCode.LeftArrow))
+                if (!playerIsPunching)
                 {
-                    transform.Translate(Vector3.forward * speed * Time.deltaTime);
-                }
+                    if (Input.GetKey(KeyCode.LeftArrow))
+                    {
+                        if (playerDistance >= 1.15f)
+                        {
+                            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                        }
+                    }
 
-                if (Input.GetKey(KeyCode.RightArrow))
-                {
-                    transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+                    if (Input.GetKey(KeyCode.RightArrow))
+                    {
+                        if (redBackDistance >= 1.3f)
+                        {
+                            transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+                        }
+                    }
+
+                    if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        transform.Translate(Vector3.right * speed * Time.deltaTime);
+                    }
+
+                    if (Input.GetKey(KeyCode.DownArrow))
+                    {
+                        transform.Translate(-Vector3.right * speed * Time.deltaTime);
+                    }
                 }
                 break;
             default:
@@ -96,7 +149,7 @@ public class PlayerController : MonoBehaviour
 
                 if (hasPunchReset)
                 {
-                    rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed/2 * Time.deltaTime);
+                    rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
 
                     if (Input.GetKeyDown(KeyCode.H))
                     {
