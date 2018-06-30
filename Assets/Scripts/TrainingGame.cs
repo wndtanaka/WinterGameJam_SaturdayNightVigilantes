@@ -20,6 +20,13 @@ public class TrainingGame : MonoBehaviour {
     public O_gamechoice o_gamechoice;
     public T_gamechoice t_gamechoice;
 
+    [Header("Treadmill")]
+    public float treadWinScore1, treadWinScore2;
+    public float treadRunUp1, treadRunUp2;
+    public float runDown1, runDown2;
+    public bool player1Lost, player1Won, treadStart, player2Lost, player2Won;
+    public float trainingTimer;
+
     public enum O_gamechoice // Player One's game choice enum
     {
         pullup = 0,
@@ -42,6 +49,18 @@ public class TrainingGame : MonoBehaviour {
         choiceSelected = false;
 
         _view = GameObject.FindWithTag("Main Camera").GetComponent<ChangeView>();
+
+        treadWinScore1 = 0f;
+        treadRunUp1 = 10f;
+        runDown1 = 40f;
+
+        treadWinScore2 = 0f;
+        treadRunUp2 = 10f;
+        runDown2 = 40f;
+
+        treadStart = true;
+
+        trainingTimer = 5f;
     }
 
     void Update()
@@ -60,6 +79,44 @@ public class TrainingGame : MonoBehaviour {
                     if (o_gamechoice == O_gamechoice.treadmill)
                     {
                         //anim.setBool("o_isRunning", true);
+
+                        if (treadStart == true)
+                        {
+                            trainingTimer -= 1f * Time.deltaTime;
+
+                            treadWinScore1 -= runDown1 * Time.deltaTime;
+
+                            if (treadWinScore1 <= 0f)
+                            {
+                                treadWinScore1 = 0f;
+                            }
+
+                            if (trainingTimer <= 0)
+                            {
+                                trainingTimer = 0f;
+
+                                treadStart = false;
+                            }
+                        }
+
+                        if (Input.GetKeyDown(o_Action) && treadStart == true)
+                        {
+                            treadWinScore1 = treadWinScore1 + treadRunUp1;
+                        }
+
+                        if (treadStart == false && treadWinScore1 >= 100f)
+                        {
+                            player1Won = true;
+
+                            Debug.Log("Player 1 Won!");
+                        }
+
+                        if (treadStart == false && treadWinScore1 < 100f)
+                        {
+                            player1Lost = true;
+
+                            Debug.Log("Player 1 Lost!");
+                        }
                     }
                     if (o_gamechoice == O_gamechoice.pullup)
                     {
@@ -79,6 +136,44 @@ public class TrainingGame : MonoBehaviour {
                     {
                         t_RunSpeed += 0.5f;
                         //anim.setFloat("t_RunSpeed", t_RunSpeed);
+
+                        if (treadStart == true)
+                        {
+                            trainingTimer -= 1f * Time.deltaTime;
+
+                            treadWinScore2 -= runDown2 * Time.deltaTime;
+
+                            if (treadWinScore2 <= 0f)
+                            {
+                                treadWinScore2 = 0f;
+                            }
+
+                            if (trainingTimer <= 0)
+                            {
+                                trainingTimer = 0f;
+
+                                treadStart = false;
+                            }
+                        }
+
+                        if (Input.GetKeyDown(t_Action) && treadStart == true)
+                        {
+                            treadWinScore2 = treadWinScore2 + treadRunUp2;
+                        }
+
+                        if (treadStart == false && treadWinScore2 >= 100f)
+                        {
+                            player2Won = true;
+
+                            Debug.Log("Player 2 Won!");
+                        }
+
+                        if (treadStart == false && treadWinScore2 < 100f)
+                        {
+                            player2Lost = true;
+
+                            Debug.Log("Player 2 Lost!");
+                        }
                     }
                     if (t_gamechoice == T_gamechoice.pullup)
                     {

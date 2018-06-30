@@ -17,8 +17,10 @@ public class PlayerController : MonoBehaviour
 
     public bool playerIsTouching;
 
-    public float playerDistance, redBackDistance, blueBackDistance;
-    public GameObject redBackBorder, blueBackBorder;
+    public float playerDistance;
+
+    public GameObject boxingRing;
+    public float ringRadius;
 
     Player player;
 
@@ -48,8 +50,6 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         playerDistance = Vector3.Distance(otherPlayer.transform.position, transform.position);
-        redBackDistance = Vector3.Distance(redBackBorder.transform.position, transform.position);
-        blueBackDistance = Vector3.Distance(blueBackBorder.transform.position, transform.position);
 
         PlayerMovement();
         PlayerPunch();
@@ -70,19 +70,13 @@ public class PlayerController : MonoBehaviour
                 {
                     if (Input.GetKey(KeyCode.W))
                     {
-                        if (playerDistance >= 1.15f)
-                        {
                             transform.Translate(Vector3.forward * speed * Time.deltaTime);
-                        }
                         //rb.AddForce(transform.forward * speed * Time.deltaTime);
                     }
 
                     if (Input.GetKey(KeyCode.S))
                     {
-                        if (blueBackDistance >= 1.3f)
-                        {
                             transform.Translate(-Vector3.forward * speed * Time.deltaTime);
-                        }
                         //rb.AddForce(-transform.forward * speed * Time.deltaTime);
                     }
 
@@ -105,6 +99,9 @@ public class PlayerController : MonoBehaviour
                 {
                     rb.velocity = Vector3.zero;
                 }*/
+
+                
+
                 break;
             case PlayerType.PlayerTwo:
                 //inputH = Input.GetAxis("Horiz2");
@@ -115,18 +112,12 @@ public class PlayerController : MonoBehaviour
                 {
                     if (Input.GetKey(KeyCode.UpArrow))
                     {
-                        if (playerDistance >= 1.15f)
-                        {
                             transform.Translate(Vector3.forward * speed * Time.deltaTime);
-                        }
                     }
 
                     if (Input.GetKey(KeyCode.DownArrow))
                     {
-                        if (redBackDistance >= 1.3f)
-                        {
                             transform.Translate(-Vector3.forward * speed * Time.deltaTime);
-                        }
                     }
 
                     if (Input.GetKey(KeyCode.RightArrow))
@@ -138,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
                     if (Input.GetKey(KeyCode.LeftArrow))
                     {
-                        transform.Translate(-Vector3.right * speed * Time.deltaTime);
+                        ///transform.Translate(-Vector3.right * speed * Time.deltaTime);
 
                         //transform.LookAt(otherPlayer.transform);
                     }
@@ -154,6 +145,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.LookAt(otherPlayer.transform);
         }*/
+        InvisibleBounds();
     }
 
     void PlayerPunch()
@@ -242,6 +234,24 @@ public class PlayerController : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(boxingRing.transform.position, ringRadius);
+    }
+    
+    void InvisibleBounds()
+    {
+        Vector3 centerPosition = boxingRing.transform.position; //centre of boxing ring
+        float distance = Vector3.Distance(transform.position, centerPosition); //distance from player to boxing ring centre
+
+        if (distance > ringRadius) //If the distance is less than the radius, it is already within the circle.
+        {
+            Vector3 fromOriginToObject = transform.position - centerPosition;
+            fromOriginToObject *= ringRadius / distance; //Multiply by radius, Divide by Distance
+            transform.position = centerPosition + fromOriginToObject; //boxing ring centre + math from above
         }
     }
 }
