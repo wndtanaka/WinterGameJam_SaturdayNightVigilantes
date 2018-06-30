@@ -80,6 +80,16 @@ public class PlayerController : MonoBehaviour
                         }
                         //rb.AddForce(-transform.forward * speed * Time.deltaTime);
                     }
+
+                    if (Input.GetKey(KeyCode.W))
+                    {
+                        transform.Translate(-Vector3.right * speed * Time.deltaTime);
+                    }
+
+                    if (Input.GetKey(KeyCode.S))
+                    {
+                        transform.Translate(Vector3.right * speed * Time.deltaTime);
+                    }
                 }
 
                 /*if (!Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.D))
@@ -108,6 +118,16 @@ public class PlayerController : MonoBehaviour
                         {
                             transform.Translate(-Vector3.forward * speed * Time.deltaTime);
                         }
+                    }
+
+                    if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        transform.Translate(Vector3.right * speed * Time.deltaTime);
+                    }
+
+                    if (Input.GetKey(KeyCode.DownArrow))
+                    {
+                        transform.Translate(-Vector3.right * speed * Time.deltaTime);
                     }
                 }
                 break;
