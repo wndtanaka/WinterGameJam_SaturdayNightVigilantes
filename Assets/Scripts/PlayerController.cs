@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         switch (playerType)
         {
             case PlayerType.PlayerOne:
-                
+
                 if (!playerIsPunching)
                 {
                     if (Input.GetKey(KeyCode.W))
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
 
                 break;
             case PlayerType.PlayerTwo:
-                
+
                 if (!playerIsPunching)
                 {
                     if (Input.GetKey(KeyCode.UpArrow))
@@ -180,23 +180,22 @@ public class PlayerController : MonoBehaviour
                 if (hasPunchReset)
                 {
                     rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
-                    if (player.stamina >= 15)
+
+                    if (Input.GetKeyDown(KeyCode.H) && player.stamina >= 15)
                     {
-                        if (Input.GetKeyDown(KeyCode.H))
-                        {
-                            Player player = GetComponent<Player>();
-                            playerOne.SetBool("isHitting", true);
-                            playerOne.SetBool("isHittingRight", true);
-                            player.StaminaCost(15);
-                            playerIsPunching = true;
-                            hasPunchReset = false;
-                        }
-                        else
-                        {
-                            playerOne.SetBool("isHitting", false);
-                            playerOne.SetBool("isHittingRight", false);
-                        }
+                        Player player = GetComponent<Player>();
+                        playerOne.SetBool("isHitting", true);
+                        playerOne.SetBool("isHittingRight", true);
+                        player.StaminaCost(15);
+                        playerIsPunching = true;
+                        hasPunchReset = false;
                     }
+                    else
+                    {
+                        playerOne.SetBool("isHitting", false);
+                        playerOne.SetBool("isHittingRight", false);
+                    }
+
                 }
 
                 if (!hasPunchReset)
