@@ -76,8 +76,8 @@ public class GameManager : MonoBehaviour
 
     public void ChangeRounds()
     {
-        gameTime = 5;
-        breakTime = 2;
+        gameTime = 60;
+        breakTime = 10;
         breakUI.alpha = breakUI.alpha > 0 ? 0 : 1;
         breakUI.blocksRaycasts = breakUI.blocksRaycasts == true ? false : true;
         gameUI.alpha = gameUI.alpha > 0 ? 0 : 1;

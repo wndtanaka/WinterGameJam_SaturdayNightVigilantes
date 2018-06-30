@@ -6,6 +6,8 @@ public class Punch : MonoBehaviour
 {
     public PlayerType playerType;
 
+    public Player player;
+
     // Use this for initialization
     void Start()
     {
@@ -22,15 +24,8 @@ public class Punch : MonoBehaviour
     {
         if (other.gameObject.name == "Score")
         {
-            switch (playerType)
-            {
-                case (PlayerType.PlayerOne):
-                    Debug.Log("Blue Hits!!!");
-                break;
-                case (PlayerType.PlayerTwo):
-                    Debug.Log("Red Hits!!!");
-                    break;
-            }
+            player = other.GetComponentInParent<Player>();
+            player.TakeDamage(10);
         }
     }
 }

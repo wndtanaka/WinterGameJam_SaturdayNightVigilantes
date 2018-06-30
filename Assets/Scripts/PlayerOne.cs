@@ -16,6 +16,7 @@ public class PlayerOne : Player
             return instance;
         }
     }
+
     public void TrainingResult(GameChoice gameChoice, float amount)
     {
         switch (gameChoice)

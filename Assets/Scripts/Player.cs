@@ -44,27 +44,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        #region Debug
-        switch (playerType)
-        {
-            case PlayerType.PlayerOne:
-                if (Input.GetKeyDown(KeyCode.Z))
-                {
-                    TakeDamage(damage);
-                    StaminaCost(20);
-                }
-                break;
-            case PlayerType.PlayerTwo:
-                if (Input.GetKeyDown(KeyCode.X))
-                {
-                    TakeDamage(damage);
-                    StaminaCost(20);
-                }
-                break;
-            default:
-                break;
-        }
-        #endregion
         if (health < maxHealth)
         {
             health += 1 * Time.deltaTime;
@@ -85,13 +64,13 @@ public class Player : MonoBehaviour
         healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, health / maxHealth, 5 * Time.deltaTime);
         staminaBar.fillAmount = Mathf.Lerp(staminaBar.fillAmount, stamina / maxStamina, 5 * Time.deltaTime);
     }
+    public void StaminaCost(float amount)
+    {
+        stamina -= amount;
+    }
 
     public void TakeDamage(float amount)
     {
         health -= amount;
-    }
-    public void StaminaCost(float amount)
-    {
-        stamina -= amount;
     }
 }
