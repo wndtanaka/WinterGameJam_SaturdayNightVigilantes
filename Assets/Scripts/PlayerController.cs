@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     public float playerDistance, redBackDistance, blueBackDistance;
     public GameObject redBackBorder, blueBackBorder;
 
+    Player player;
+
     // Use this for initialization
     void Start()
     {
@@ -27,6 +29,8 @@ public class PlayerController : MonoBehaviour
 
         playerIsPunching = false;
         hasPunchReset = true;
+
+        player = GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -49,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
         PlayerMovement();
         PlayerPunch();
+
     }
 
     void PlayerMovement()
@@ -158,11 +163,15 @@ public class PlayerController : MonoBehaviour
                 if (hasPunchReset)
                 {
                     rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
-
-                    if (Input.GetKeyDown(KeyCode.H))
+                    if (player.stamina >= 15)
                     {
-                        playerIsPunching = true;
-                        hasPunchReset = false;
+                        if (Input.GetKeyDown(KeyCode.H))
+                        {
+                            Player player = GetComponent<Player>();
+                            player.StaminaCost(15);
+                            playerIsPunching = true;
+                            hasPunchReset = false;
+                        }
                     }
                 }
 
@@ -194,10 +203,15 @@ public class PlayerController : MonoBehaviour
                 {
                     rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
 
-                    if (Input.GetKeyDown(KeyCode.Keypad3))
+                    if (player.stamina >= 15)
                     {
-                        playerIsPunching = true;
-                        hasPunchReset = false;
+                        if (Input.GetKeyDown(KeyCode.Keypad3))
+                        {
+                            Player player = GetComponent<Player>();
+                            player.StaminaCost(15);
+                            playerIsPunching = true;
+                            hasPunchReset = false;
+                        }
                     }
                 }
 
