@@ -1,0 +1,249 @@
+fileFormatVersion: 2
+guid: 322966695ad0679419d6ab011a365f83
+timeCreated: 1530343984
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: body1
+    100002: body_jnt
+    100004: boxer
+    100006: //RootNode
+    100008: chest_jnt
+    100010: group10
+    100012: group11
+    100014: group12
+    100016: group13
+    100018: group14
+    100020: group7
+    100022: group8
+    100024: group9
+    100026: head_END_jnt
+    100028: head_jnt
+    100030: helmet
+    100032: L_ankle_jnt
+    100034: L_arm_jnt
+    100036: L_boot1
+    100038: L_foot_END_jnt
+    100040: L_foot_jnt
+    100042: L_hip_jnt
+    100044: L_wrist_END_jnt
+    100046: L_wrist_jnt
+    100048: neck_jnt
+    100050: R_ankle_jnt
+    100052: R_arm_jnt
+    100054: R_boot1
+    100056: R_foot_END_jnt
+    100058: R_foot_jnt
+    100060: R_hip_jnt
+    100062: R_wrist_END_jnt
+    100064: R_wrist_jnt
+    100066: root_jnt
+    400000: body1
+    400002: body_jnt
+    400004: boxer
+    400006: //RootNode
+    400008: chest_jnt
+    400010: group10
+    400012: group11
+    400014: group12
+    400016: group13
+    400018: group14
+    400020: group7
+    400022: group8
+    400024: group9
+    400026: head_END_jnt
+    400028: head_jnt
+    400030: helmet
+    400032: L_ankle_jnt
+    400034: L_arm_jnt
+    400036: L_boot1
+    400038: L_foot_END_jnt
+    400040: L_foot_jnt
+    400042: L_hip_jnt
+    400044: L_wrist_END_jnt
+    400046: L_wrist_jnt
+    400048: neck_jnt
+    400050: R_ankle_jnt
+    400052: R_arm_jnt
+    400054: R_boot1
+    400056: R_foot_END_jnt
+    400058: R_foot_jnt
+    400060: R_hip_jnt
+    400062: R_wrist_END_jnt
+    400064: R_wrist_jnt
+    400066: root_jnt
+    4300000: helmet
+    4300002: body1
+    4300004: L_boot1
+    4300006: R_boot1
+    7400000: walk_backward_w.o_gloves
+    9500000: //RootNode
+    13700000: body1
+    13700002: helmet
+    13700004: L_boot1
+    13700006: R_boot1
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: walk_backward_w.o_gloves
+      takeName: Take 001
+      firstFrame: 103
+      lastFrame: 121
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: boxer
+        weight: 1
+      - path: boxer/body1
+        weight: 1
+      - path: boxer/helmet
+        weight: 1
+      - path: boxer/L_boot1
+        weight: 1
+      - path: boxer/R_boot1
+        weight: 1
+      - path: group7
+        weight: 1
+      - path: group7/root_jnt
+        weight: 1
+      - path: group7/root_jnt/group8
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt/group11
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt/group11/neck_jnt
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt/group11/neck_jnt/group12
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt/group11/neck_jnt/group12/head_jnt
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt/group11/neck_jnt/group12/head_jnt/head_END_jnt
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt/L_arm_jnt
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt/L_arm_jnt/group9
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt/L_arm_jnt/group9/L_wrist_jnt
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt/L_arm_jnt/group9/L_wrist_jnt/L_wrist_END_jnt
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt/R_arm_jnt
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt/R_arm_jnt/group10
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt/R_arm_jnt/group10/R_wrist_jnt
+        weight: 1
+      - path: group7/root_jnt/group8/body_jnt/chest_jnt/R_arm_jnt/group10/R_wrist_jnt/R_wrist_END_jnt
+        weight: 1
+      - path: group7/root_jnt/L_hip_jnt
+        weight: 1
+      - path: group7/root_jnt/L_hip_jnt/group13
+        weight: 1
+      - path: group7/root_jnt/L_hip_jnt/group13/L_ankle_jnt
+        weight: 1
+      - path: group7/root_jnt/L_hip_jnt/group13/L_ankle_jnt/L_foot_jnt
+        weight: 1
+      - path: group7/root_jnt/L_hip_jnt/group13/L_ankle_jnt/L_foot_jnt/L_foot_END_jnt
+        weight: 1
+      - path: group7/root_jnt/R_hip_jnt
+        weight: 1
+      - path: group7/root_jnt/R_hip_jnt/group14
+        weight: 1
+      - path: group7/root_jnt/R_hip_jnt/group14/R_ankle_jnt
+        weight: 1
+      - path: group7/root_jnt/R_hip_jnt/group14/R_ankle_jnt/R_foot_jnt
+        weight: 1
+      - path: group7/root_jnt/R_hip_jnt/group14/R_ankle_jnt/R_foot_jnt/R_foot_END_jnt
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
