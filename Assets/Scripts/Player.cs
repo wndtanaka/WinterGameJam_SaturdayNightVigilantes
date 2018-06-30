@@ -12,9 +12,9 @@ public class Player : MonoBehaviour
     public float stamina;
     protected float maxStamina = 100;
 
-    public float damage = 10;
-    public float speed = 10;
-    public float range = 10;
+    public float damage = 5;
+    public float speed = 5;
+    public float range = 5;
 
     public bool isDead = false;
 

@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Train Time")]
     [SerializeField]
-    float trainTime = 10f;
+    float trainTime = 15f;
     public Text trainTimeText;
 
     [Header("Canvas Group")]
@@ -72,6 +72,10 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            PlayerOne.Instance.TrainingResult(GameChoice.Treadmill, 10);
+        }
         if (trainingOneSelected)
         {
             playerOnePanel.alpha = Mathf.Lerp(playerOnePanel.alpha, 0, 10 * Time.deltaTime);
@@ -146,7 +150,7 @@ public class GameManager : MonoBehaviour
     {
         gameTime = 10;
         breakTime = 5;
-        trainTime = 10;
+        trainTime = 15;
         if (isRoundStart)
         {
             gameUI.alpha = 1;
@@ -169,62 +173,54 @@ public class GameManager : MonoBehaviour
     public void TrainingChoices()
     {
         #region Training Selection for Player One
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !trainingOneSelected)
         {
             trainingOneSelected = true;
             CameraOne.transform.position = trainingMode[0].trainingMode[0].transform.position;
-            PlayerOne.Instance.TrainingResult(GameChoice.PullUp, 10);
             gameChoiceOne = GameChoice.PullUp;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && !trainingOneSelected)
         {
             trainingOneSelected = true;
             CameraOne.transform.position = trainingMode[0].trainingMode[1].transform.position;
-            PlayerOne.Instance.TrainingResult(GameChoice.Treadmill, 10);
             gameChoiceOne = GameChoice.Treadmill;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && !trainingOneSelected)
         {
             trainingOneSelected = true;
             CameraOne.transform.position = trainingMode[0].trainingMode[2].transform.position;
-            PlayerOne.Instance.TrainingResult(GameChoice.PunchingBag, 10);
             gameChoiceOne = GameChoice.PunchingBag;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        else if (Input.GetKeyDown(KeyCode.Alpha4) && !trainingOneSelected)
         {
             trainingOneSelected = true;
             CameraOne.transform.position = trainingMode[0].trainingMode[3].transform.position;
-            PlayerOne.Instance.TrainingResult(GameChoice.Rest, 0);
             gameChoiceOne = GameChoice.Rest;
         }
         #endregion
         #region Training Selection for Player Two
-        if (Input.GetKeyDown(KeyCode.Keypad1))
+        if (Input.GetKeyDown(KeyCode.Keypad1) && !trainingTwoSelected)
         {
             trainingTwoSelected = true;
             CameraTwo.transform.position = trainingMode[1].trainingMode[0].transform.position;
-            PlayerTwo.Instance.TrainingResult(GameChoice.PullUp, 10);
             gameChoiceTwo = GameChoice.PullUp;
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad2))
+        else if (Input.GetKeyDown(KeyCode.Keypad2) && !trainingTwoSelected)
         {
             trainingTwoSelected = true;
             CameraTwo.transform.position = trainingMode[1].trainingMode[1].transform.position;
-            PlayerTwo.Instance.TrainingResult(GameChoice.Treadmill, 10);
             gameChoiceTwo = GameChoice.Treadmill;
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad3))
+        else if (Input.GetKeyDown(KeyCode.Keypad3) && !trainingTwoSelected)
         {
             trainingTwoSelected = true;
             CameraTwo.transform.position = trainingMode[1].trainingMode[2].transform.position;
-            PlayerTwo.Instance.TrainingResult(GameChoice.PunchingBag, 10);
             gameChoiceTwo = GameChoice.PunchingBag;
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad4))
+        else if (Input.GetKeyDown(KeyCode.Keypad4) && !trainingTwoSelected)
         {
             trainingTwoSelected = true;
             CameraTwo.transform.position = trainingMode[1].trainingMode[3].transform.position;
-            PlayerTwo.Instance.TrainingResult(GameChoice.Rest, 0);
             gameChoiceTwo = GameChoice.Rest;
         }
         #endregion
@@ -235,7 +231,41 @@ public class GameManager : MonoBehaviour
         isBreakStart = false;
         isRoundStart = false;
         isTrainingStart = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
+
+        switch (gameChoiceOne)
+        {
+            case GameChoice.PullUp:
+                PlayerOne.Instance.TrainingResult(GameChoice.PullUp, 10);
+                Debug.Log("Pull");
+                break;
+            case GameChoice.Treadmill:
+                PlayerOne.Instance.TrainingResult(GameChoice.Treadmill, 10);
+                Debug.Log("One");
+                break;
+            case GameChoice.PunchingBag:
+                PlayerOne.Instance.TrainingResult(GameChoice.PunchingBag, 10);
+                break;
+            case GameChoice.Rest:
+                PlayerOne.Instance.TrainingResult(GameChoice.Rest, 0);
+                break;
+        }
+        switch (gameChoiceTwo)
+        {
+            case GameChoice.PullUp:
+                PlayerTwo.Instance.TrainingResult(GameChoice.PullUp, 10);
+                break;
+            case GameChoice.Treadmill:
+                PlayerTwo.Instance.TrainingResult(GameChoice.Treadmill, 10);
+                Debug.Log("Two");
+                break;
+            case GameChoice.PunchingBag:
+                PlayerTwo.Instance.TrainingResult(GameChoice.PunchingBag, 10);
+                break;
+            case GameChoice.Rest:
+                PlayerTwo.Instance.TrainingResult(GameChoice.Rest, 0);
+                break;
+        }
     }
 
     [System.Serializable]
