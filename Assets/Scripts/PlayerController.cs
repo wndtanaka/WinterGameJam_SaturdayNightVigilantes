@@ -84,11 +84,15 @@ public class PlayerController : MonoBehaviour
                     if (Input.GetKey(KeyCode.A))
                     {
                         transform.Translate(-Vector3.right * speed * Time.deltaTime);
+
+                        transform.LookAt(otherPlayer.transform);
                     }
 
                     if (Input.GetKey(KeyCode.D))
                     {
                         transform.Translate(Vector3.right * speed * Time.deltaTime);
+
+                        transform.LookAt(otherPlayer.transform);
                     }
                 }
 
@@ -123,11 +127,15 @@ public class PlayerController : MonoBehaviour
                     if (Input.GetKey(KeyCode.RightArrow))
                     {
                         transform.Translate(Vector3.right * speed * Time.deltaTime);
+
+                        transform.LookAt(otherPlayer.transform);
                     }
 
                     if (Input.GetKey(KeyCode.LeftArrow))
                     {
                         transform.Translate(-Vector3.right * speed * Time.deltaTime);
+
+                        transform.LookAt(otherPlayer.transform);
                     }
                 }
                 break;
@@ -135,10 +143,10 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        if (otherPlayer != null)
+        /*if (otherPlayer != null)
         {
             transform.LookAt(otherPlayer.transform);
-        }
+        }*/
     }
 
     void PlayerPunch()
