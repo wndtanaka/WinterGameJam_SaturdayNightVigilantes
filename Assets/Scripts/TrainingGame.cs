@@ -122,6 +122,9 @@ public class TrainingGame : MonoBehaviour {
                 }
             }
         }
+        GameModeToggler();
+        CheckPlayerOneSpeed();
+        CheckPlayerTwoSpeed();
     }
     void GameModeToggler()
     {
@@ -165,8 +168,7 @@ public class TrainingGame : MonoBehaviour {
                 //anim.setBool("t_isPullingUp", true);
             }
         }
-        CheckPlayerOneSpeed();
-        CheckPlayerTwoSpeed();
+        
     }
     void CheckPlayerOneSpeed()
     {
