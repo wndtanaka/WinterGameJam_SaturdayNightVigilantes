@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,11 +9,23 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [SerializeField]
-    GameObject breakUI;
+    CanvasGroup breakUI;
     [SerializeField]
-    GameObject gameUI;
+    CanvasGroup gameUI;
 
-    // Use this for initialization
+    [Header("Game Time")]
+    [SerializeField]
+    float gameTime = 60;
+    public Text gameTimeText;
+
+    [Header("Break Time")]
+    [SerializeField]
+    float breakTime = 10;
+    public Text breakTimeText;
+
+    bool isRoundStart = true;
+    bool isBreakStart = false;
+
     void Start()
     {
         if (instance == null)
@@ -20,16 +33,45 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
     }
-
-    public void BreakTime()
+    private void Update()
     {
-        breakUI.SetActive(true);
-        gameUI.SetActive(false);
+        if (isRoundStart)
+        {
+            if (gameTime > 0)
+            {
+                gameTime -= Time.deltaTime;
+            }
+            else
+            {
+                ChangeRounds();
+                isBreakStart = !isBreakStart;
+                isRoundStart = !isRoundStart;
+            }
+        }
+        if (isBreakStart)
+        {
+            if (breakTime > 0)
+            {
+                breakTime -= Time.deltaTime;
+            }
+            else
+            {
+                ChangeRounds();
+                isBreakStart = !isBreakStart;
+                isRoundStart = !isRoundStart;
+            }
+        }
+        breakTimeText.text = breakTime.ToString("F0");
+        gameTimeText.text = gameTime.ToString("F0");
     }
 
-    public void GameTime()
+    public void ChangeRounds()
     {
-        gameUI.SetActive(true);
-        breakUI.SetActive(false);
+        gameTime = 5;
+        breakTime = 2;
+        breakUI.alpha = breakUI.alpha > 0 ? 0 : 1;
+        breakUI.blocksRaycasts = breakUI.blocksRaycasts == true ? false : true;
+        gameUI.alpha = gameUI.alpha > 0 ? 0 : 1;
+        gameUI.blocksRaycasts = gameUI.blocksRaycasts == true ? false : true;
     }
 }

@@ -82,7 +82,7 @@ public class ChangeView : MonoBehaviour
                 }
                 // Set camera to new position.
                 Vector3 dir = (Camera.main.transform.position - middlePoint).normalized;
-                Camera.main.transform.position = middlePoint + dir * (cameraDistance + DISTANCE_MARGIN);
+                Camera.main.transform.position = Vector3.Lerp(transform.position,middlePoint + dir * (cameraDistance + DISTANCE_MARGIN), lerpTime * Time.deltaTime);
             }
         }
 
