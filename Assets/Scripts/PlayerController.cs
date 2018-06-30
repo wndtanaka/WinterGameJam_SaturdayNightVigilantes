@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     public float ringRadius;
 
     Player player;
+    Animator playerOne;
+    Animator playerTwo;
 
     // Use this for initialization
     void Start()
@@ -33,6 +35,10 @@ public class PlayerController : MonoBehaviour
         hasPunchReset = true;
 
         player = GetComponent<Player>();
+
+        playerOne = GameObject.FindWithTag("Player One").GetComponent<Animator>();
+        playerTwo = GameObject.FindWithTag("Player Two").GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -62,76 +68,93 @@ public class PlayerController : MonoBehaviour
         switch (playerType)
         {
             case PlayerType.PlayerOne:
-                //inputH = Input.GetAxis("Horizontal");
-                //inputV = Input.GetAxis("Vertical");
-
-                //transform.Translate(new Vector3(inputH, 0, inputV) * speed * Time.deltaTime);
+                
                 if (!playerIsPunching)
                 {
                     if (Input.GetKey(KeyCode.W))
                     {
-                            transform.Translate(Vector3.forward * speed * Time.deltaTime);
-                        //rb.AddForce(transform.forward * speed * Time.deltaTime);
+                        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                        playerOne.SetBool("MovingForward", true);
+                    }
+                    else
+                    {
+                        playerOne.SetBool("MovingForward", false);
                     }
 
                     if (Input.GetKey(KeyCode.S))
                     {
-                            transform.Translate(-Vector3.forward * speed * Time.deltaTime);
-                        //rb.AddForce(-transform.forward * speed * Time.deltaTime);
+                        transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+                        playerOne.SetBool("MovingBack", true);
+                    }
+                    else
+                    {
+                        playerOne.SetBool("MovingBack", false);
                     }
 
                     if (Input.GetKey(KeyCode.A))
                     {
                         transform.Translate(-Vector3.right * speed * Time.deltaTime);
-
-                        //transform.LookAt(otherPlayer.transform);
+                        playerOne.SetBool("MovingLeft", true);
+                    }
+                    else
+                    {
+                        playerOne.SetBool("MovingLeft", false);
                     }
 
                     if (Input.GetKey(KeyCode.D))
                     {
                         transform.Translate(Vector3.right * speed * Time.deltaTime);
-
-                        //transform.LookAt(otherPlayer.transform);
+                        playerOne.SetBool("MovingRight", true);
+                    }
+                    else
+                    {
+                        playerOne.SetBool("MovingRight", false);
                     }
                 }
 
-                /*if (!Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.D))
-                {
-                    rb.velocity = Vector3.zero;
-                }*/
-
-                
-
                 break;
             case PlayerType.PlayerTwo:
-                //inputH = Input.GetAxis("Horiz2");
-                //inputV = Input.GetAxis("Vert2");
-
-                //transform.Translate(new Vector3(inputH, 0, inputV) * speed * Time.deltaTime);
+                
                 if (!playerIsPunching)
                 {
                     if (Input.GetKey(KeyCode.UpArrow))
                     {
-                            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                        playerTwo.SetBool("MovingForward", true);
+                    }
+                    else
+                    {
+                        playerTwo.SetBool("MovingForward", false);
                     }
 
                     if (Input.GetKey(KeyCode.DownArrow))
                     {
-                            transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+                        transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+                        playerTwo.SetBool("MovingBack", true);
+                    }
+                    else
+                    {
+                        playerTwo.SetBool("MovingBack", false);
                     }
 
                     if (Input.GetKey(KeyCode.RightArrow))
                     {
                         transform.Translate(Vector3.right * speed * Time.deltaTime);
-
-                        //transform.LookAt(otherPlayer.transform);
+                        playerTwo.SetBool("MovingRight", true);
+                    }
+                    else
+                    {
+                        playerTwo.SetBool("MovingRight", false);
                     }
 
                     if (Input.GetKey(KeyCode.LeftArrow))
                     {
                         transform.Translate(-Vector3.right * speed * Time.deltaTime);
-
-                        //transform.LookAt(otherPlayer.transform);
+                        playerTwo.SetBool("MovingLeft", true);
+                    }
+                    else
+                    {
+                        playerTwo.SetBool("MovingLeft", false);
                     }
                 }
                 break;
@@ -241,7 +264,7 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.DrawWireSphere(boxingRing.transform.position, ringRadius);
     }
-    
+
     void InvisibleBounds()
     {
         Vector3 centerPosition = boxingRing.transform.position; //centre of boxing ring
