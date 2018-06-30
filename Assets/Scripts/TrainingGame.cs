@@ -427,4 +427,3 @@ public class TrainingGame : MonoBehaviour {
         }
     }
 }
-    {
