@@ -122,43 +122,9 @@ public class TrainingGame : MonoBehaviour {
                 }
             }
         }
-
-        //Player One Run Speed stuff
-        o_RunSpeed -= 0.5f;
-        if (o_RunSpeed <= 0)
-            o_RunSpeed = 0;
-
-        if (o_RunSpeed >= 3)
-            o_RunSpeed = 3;
-
-        if (o_RunSpeed < 1f)
-        {
-            //No Speed Gain in real game
-        }
-
-        if (o_RunSpeed >= 1f)
-        {
-            //Speed Gain in real game
-        }
-
-        //Player Two Run Speed stuff
-        t_RunSpeed -= 0.5f;
-        if (t_RunSpeed <= 0)
-            t_RunSpeed = 0;
-
-        if (t_RunSpeed >= 3)
-            t_RunSpeed = 3;
-
-        if (t_RunSpeed < 1f)
-        {
-            //No Speed Gain in real game
-        }
-
-        if (t_RunSpeed >= 1f)
-        {
-            //Speed Gain in real game
-        }
-
+        GameModeToggler();
+        CheckPlayerOneSpeed();
+        CheckPlayerTwoSpeed();
     }
     void GameModeToggler()
     {
@@ -201,6 +167,47 @@ public class TrainingGame : MonoBehaviour {
                 //anim.setBool("t_isRunning", false);
                 //anim.setBool("t_isPullingUp", true);
             }
+        }
+        
+    }
+    void CheckPlayerOneSpeed()
+    {
+        //Player One Run Speed stuff
+        o_RunSpeed -= 0.5f * Time.deltaTime;
+        if (o_RunSpeed <= 0)
+            o_RunSpeed = 0;
+
+        if (o_RunSpeed >= 3)
+            o_RunSpeed = 3;
+
+        if (o_RunSpeed < 1f)
+        {
+            //No Speed Gain in real game
+        }
+
+        if (o_RunSpeed >= 1f)
+        {
+            //Speed Gain in real game
+        }
+    }
+    void CheckPlayerTwoSpeed()
+    {
+        //Player Two Run Speed stuff
+        t_RunSpeed -= 0.5f;
+        if (t_RunSpeed <= 0)
+            t_RunSpeed = 0;
+
+        if (t_RunSpeed >= 3)
+            t_RunSpeed = 3;
+
+        if (t_RunSpeed < 1f)
+        {
+            //No Speed Gain in real game
+        }
+
+        if (t_RunSpeed >= 1f)
+        {
+            //Speed Gain in real game
         }
     }
 }
