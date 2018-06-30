@@ -33,6 +33,11 @@ public class TrainingGame : MonoBehaviour {
     public float bagNeedle1, bagNeedle2;
     public bool bagBottom1, bagTop1, bagBottom2, bagTop2, bagStart1, bagStart2, bagHit;
 
+    [Header("Pull-Ups")]
+    public float pullBar1;
+    public float pullBar2, pull1, pull2;
+    public bool pullStart1, pullStart2, pullReset1, pullReset2, pullCounted1, pullCounted2, pullRelease1, pullRelease2;
+    public int pullCount1, pullCount2;
 
     public enum O_gamechoice // Player One's game choice enum
     {
@@ -88,10 +93,88 @@ public class TrainingGame : MonoBehaviour {
         bagBottom2 = true;
         bagTop2 = false;
         #endregion
+
+        #region Pull-Up Starts
+        pullBar1 = 0f;
+        pullBar2 = 0f;
+
+        pull1 = 40f;
+
+        pullStart1 = true;
+        pullStart2 = true;
+
+        pullCount1 = 0;
+        pullCount2 = 0;
+
+        pullCounted1 = false;
+        pullCounted2 = false;
+
+        pullRelease1 = false;
+        pullRelease2 = false;
+        #endregion
     }
 
     void Update()
     {
+        if (pullStart1 == true)
+        {
+            if (pullReset1 == false)
+            {
+                if (Input.GetKey(KeyCode.G) && pullRelease1 == false)
+                {
+                    pullBar1 += pull1 * Time.deltaTime;
+                }
+
+                else
+                {
+                    pullBar1 -= (pull1 * 3) * Time.deltaTime;
+                }
+
+                if (pullBar1 <= 0f)
+                {
+                    pullBar1 = 0f;
+                }
+
+                if (pullBar1 >= 100f)
+                {
+                    if (pullCounted1 == false)
+                    {
+                        pullCount1 += 1;
+
+                        pullCounted1 = true;
+                    }
+
+                    pullBar1 = 100f;
+                }
+
+                if (Input.GetKeyUp(KeyCode.G))
+                {
+                    pullRelease1 = true;
+
+                    //pullBar1 -= (pull1 * 6) * Time.deltaTime;
+
+                    if (pullCounted1 == true)
+                    {
+                        pullCounted1 = false;
+                    }
+
+                    pullReset1 = true;
+                }
+            }
+
+            if (pullReset1 == true)
+            {
+                pullBar1 -= (pull1 * 6) * Time.deltaTime;
+
+                if (pullBar1 <= 0f)
+                {
+                    pullRelease1 = false;
+
+                    pullReset1 = false;
+                }
+            }
+        }
+
         if (_view.isTraining)
         {
             if (choiceSelected)
@@ -131,7 +214,7 @@ public class TrainingGame : MonoBehaviour {
                                 bagTop1 = false;
                             }
 
-                            if (Input.GetKeyDown(KeyCode.G))
+                            if (Input.GetKeyDown(o_Action))
                             {
                                 bagStart1 = false;
                             }
@@ -234,7 +317,7 @@ public class TrainingGame : MonoBehaviour {
                                 bagTop2 = false;
                             }
 
-                            if (Input.GetKeyDown(KeyCode.G))
+                            if (Input.GetKeyDown(t_Action))
                             {
                                 bagStart2 = false;
                             }
