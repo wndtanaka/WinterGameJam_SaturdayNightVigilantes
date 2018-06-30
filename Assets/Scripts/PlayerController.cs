@@ -12,8 +12,9 @@ public class PlayerController : MonoBehaviour
 
     public GameObject rightHand, leftHand, punchTarget, rHandOrigin, lHandOrigin;
     public float punchSpeed;
+    public bool isHittingLeft;
 
-    public bool playerIsPunching, hasPunchReset;
+    public bool playerIsPunching, r_hasPunchReset, l_hasPunchReset;
 
     public bool playerIsTouching;
 
@@ -32,7 +33,8 @@ public class PlayerController : MonoBehaviour
         punchSpeed = 4f;
 
         playerIsPunching = false;
-        hasPunchReset = true;
+        r_hasPunchReset = true;
+        l_hasPunchReset = true;
 
         player = GetComponent<Player>();
 
@@ -177,94 +179,203 @@ public class PlayerController : MonoBehaviour
         {
             case PlayerType.PlayerOne:
 
-                if (hasPunchReset)
+                isHittingLeft = !isHittingLeft;
+                if (isHittingLeft)
                 {
-                    rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
-
-                    if (Input.GetKeyDown(KeyCode.H) && player.stamina >= 15)
+                    if (l_hasPunchReset)
                     {
-                        Player player = GetComponent<Player>();
-                        playerOne.SetBool("isHitting", true);
-                        playerOne.SetBool("isHittingRight", true);
-                        player.StaminaCost(15);
-                        playerIsPunching = true;
-                        hasPunchReset = false;
-                    }
-                    else
-                    {
-                        playerOne.SetBool("isHitting", false);
-                        playerOne.SetBool("isHittingRight", false);
-                    }
+                        leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, lHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
 
-                }
-
-                if (!hasPunchReset)
-                {
-                    if (playerIsPunching)
-                    {
-                        rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, punchTarget.transform.position, punchSpeed * Time.deltaTime);
-                    }
-
-                    if (rightHand.transform.position == punchTarget.transform.position)
-                    {
-                        playerIsPunching = false;
-                    }
-
-                    if (!playerIsPunching)
-                    {
-                        rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
-                    }
-
-                    if (rightHand.transform.position == rHandOrigin.transform.position)
-                    {
-                        hasPunchReset = true;
-                    }
-                }
-                break;
-            case PlayerType.PlayerTwo:
-                if (hasPunchReset)
-                {
-                    rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
-
-                    if (player.stamina >= 15)
-                    {
-                        if (Input.GetKeyDown(KeyCode.Keypad3))
+                        if (Input.GetKeyDown(KeyCode.H) && player.stamina >= 15)
                         {
                             Player player = GetComponent<Player>();
-                            playerTwo.SetBool("isHitting", true);
-                            playerTwo.SetBool("isHittingRight", true);
+
+
+                            playerOne.SetBool("isHitting", true);
+
+                            playerOne.SetBool("isHittingLeft", true);
                             player.StaminaCost(15);
                             playerIsPunching = true;
-                            hasPunchReset = false;
+                            l_hasPunchReset = false;
                         }
                         else
                         {
-                            playerTwo.SetBool("isHitting", false);
-                            playerTwo.SetBool("isHittingRight", false);
+                            playerOne.SetBool("isHitting", false);
+                            playerOne.SetBool("isHittingLeft", false);
+                        }
+                    }
+                    else
+                    {
+                        if (playerIsPunching)
+                        {
+                            leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, punchTarget.transform.position, punchSpeed * Time.deltaTime);
+                        }
+
+                        if (leftHand.transform.position == punchTarget.transform.position)
+                        {
+                            playerIsPunching = false;
+                        }
+
+                        if (!playerIsPunching)
+                        {
+                            leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, lHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+                        }
+
+                        if (leftHand.transform.position == lHandOrigin.transform.position)
+                        {
+                            l_hasPunchReset = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (r_hasPunchReset)
+                    {
+                        rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+
+                        if (Input.GetKeyDown(KeyCode.H) && player.stamina >= 15)
+                        {
+                            Player player = GetComponent<Player>();
+
+
+                            playerOne.SetBool("isHitting", true);
+
+                            playerOne.SetBool("isHittingRight", true);
+                            player.StaminaCost(15);
+                            playerIsPunching = true;
+                            r_hasPunchReset = false;
+                        }
+                        else
+                        {
+                            playerOne.SetBool("isHitting", false);
+                            playerOne.SetBool("isHittingRight", false);
+                        }
+
+                    }
+
+                    if (!r_hasPunchReset)
+                    {
+                        if (playerIsPunching)
+                        {
+                            rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, punchTarget.transform.position, punchSpeed * Time.deltaTime);
+                        }
+
+                        if (rightHand.transform.position == punchTarget.transform.position)
+                        {
+                            playerIsPunching = false;
+                        }
+
+                        if (!playerIsPunching)
+                        {
+                            rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+                        }
+
+                        if (rightHand.transform.position == rHandOrigin.transform.position)
+                        {
+                            r_hasPunchReset = true;
                         }
                     }
                 }
 
-                if (!hasPunchReset)
+
+                break;
+            case PlayerType.PlayerTwo:
+                isHittingLeft = !isHittingLeft;
+
+                if (isHittingLeft)
                 {
-                    if (playerIsPunching)
+                    if (l_hasPunchReset)
                     {
-                        rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, punchTarget.transform.position, punchSpeed * Time.deltaTime);
-                    }
+                        leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, lHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
 
-                    if (rightHand.transform.position == punchTarget.transform.position)
+                        if (Input.GetKeyDown(KeyCode.Keypad3) && player.stamina >= 15)
+                        {
+                            Player player = GetComponent<Player>();
+
+
+                            playerOne.SetBool("isHitting", true);
+
+                            playerOne.SetBool("isHittingLeft", true);
+                            player.StaminaCost(15);
+                            playerIsPunching = true;
+                            l_hasPunchReset = false;
+                        }
+                        else
+                        {
+                            playerOne.SetBool("isHitting", false);
+                            playerOne.SetBool("isHittingLeft", false);
+                        }
+                    }
+                    else
                     {
-                        playerIsPunching = false;
-                    }
+                        if (playerIsPunching)
+                        {
+                            leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, punchTarget.transform.position, punchSpeed * Time.deltaTime);
+                        }
 
-                    if (!playerIsPunching)
+                        if (leftHand.transform.position == punchTarget.transform.position)
+                        {
+                            playerIsPunching = false;
+                        }
+
+                        if (!playerIsPunching)
+                        {
+                            leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, lHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+                        }
+
+                        if (leftHand.transform.position == lHandOrigin.transform.position)
+                        {
+                            l_hasPunchReset = true;
+                        }
+                    }
+                }
+                else
+                {
+
+                    if (r_hasPunchReset)
                     {
                         rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+
+                        if (player.stamina >= 15)
+                        {
+                            if (Input.GetKeyDown(KeyCode.Keypad3))
+                            {
+                                Player player = GetComponent<Player>();
+                                playerTwo.SetBool("isHitting", true);
+                                playerTwo.SetBool("isHittingRight", true);
+                                player.StaminaCost(15);
+                                playerIsPunching = true;
+                                r_hasPunchReset = false;
+                            }
+                            else
+                            {
+                                playerTwo.SetBool("isHitting", false);
+                                playerTwo.SetBool("isHittingRight", false);
+                            }
+                        }
                     }
 
-                    if (rightHand.transform.position == rHandOrigin.transform.position)
+                    if (!r_hasPunchReset)
                     {
-                        hasPunchReset = true;
+                        if (playerIsPunching)
+                        {
+                            rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, punchTarget.transform.position, punchSpeed * Time.deltaTime);
+                        }
+
+                        if (rightHand.transform.position == punchTarget.transform.position)
+                        {
+                            playerIsPunching = false;
+                        }
+
+                        if (!playerIsPunching)
+                        {
+                            rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+                        }
+
+                        if (rightHand.transform.position == rHandOrigin.transform.position)
+                        {
+                            r_hasPunchReset = true;
+                        }
                     }
                 }
                 break;

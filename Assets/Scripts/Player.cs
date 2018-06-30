@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     public float speed = 10;
     public float range = 10;
 
+    public bool isDead = false;
+
     // Use this for initialization
     void Start()
     {
@@ -32,7 +34,7 @@ public class Player : MonoBehaviour
         }
         if (health <= 0)
         {
-            Debug.Log("Dead");
+            isDead = true;
         }
         if (health >= maxHealth)
         {
