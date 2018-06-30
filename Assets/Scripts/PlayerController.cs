@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        punchSpeed = 2f;
+        punchSpeed = 4f;
 
         playerIsPunching = false;
         hasPunchReset = true;
@@ -61,7 +61,8 @@ public class PlayerController : MonoBehaviour
                 //inputV = Input.GetAxis("Vertical");
 
                 //transform.Translate(new Vector3(inputH, 0, inputV) * speed * Time.deltaTime);
-
+                if (!playerIsPunching)
+                {
                     if (Input.GetKey(KeyCode.D))
                     {
                         if (playerDistance >= 1.15f)
@@ -79,7 +80,7 @@ public class PlayerController : MonoBehaviour
                         }
                         //rb.AddForce(-transform.forward * speed * Time.deltaTime);
                     }
-                
+                }
 
                 /*if (!Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.D))
                 {
@@ -91,20 +92,22 @@ public class PlayerController : MonoBehaviour
                 //inputV = Input.GetAxis("Vert2");
 
                 //transform.Translate(new Vector3(inputH, 0, inputV) * speed * Time.deltaTime);
-
-                if (Input.GetKey(KeyCode.LeftArrow))
+                if (!playerIsPunching)
                 {
-                    if (playerDistance >= 1.15f)
+                    if (Input.GetKey(KeyCode.LeftArrow))
                     {
-                        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                        if (playerDistance >= 1.15f)
+                        {
+                            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                        }
                     }
-                }
 
-                if (Input.GetKey(KeyCode.RightArrow))
-                {
-                    if (redBackDistance >= 1.3f)
+                    if (Input.GetKey(KeyCode.RightArrow))
                     {
-                        transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+                        if (redBackDistance >= 1.3f)
+                        {
+                            transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+                        }
                     }
                 }
                 break;
