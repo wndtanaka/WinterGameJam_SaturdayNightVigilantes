@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     {
         if (health < maxHealth)
         {
-            health += 1 * Time.deltaTime;
+            health += .5f * Time.deltaTime;
         }
         if (health <= 0)
         {
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
         }
         if (stamina < maxStamina)
         {
-            stamina += 3 * Time.deltaTime;
+            stamina += .5f * Time.deltaTime;
         }
         if (stamina <= 0)
         {

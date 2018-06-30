@@ -6,14 +6,14 @@ public class Punch : MonoBehaviour
 {
     public PlayerType playerType;
 
-    public Player player;
+    Player player;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "helmet")
         {
             player = other.GetComponentInParent<Player>();
-            player.TakeDamage(10);
+            player.TakeDamage(player.damage);
         }
     }
 }

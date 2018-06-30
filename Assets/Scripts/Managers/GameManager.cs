@@ -21,11 +21,18 @@ public class GameManager : MonoBehaviour
     float breakTime = 2;
     public Text breakTimeText;
 
+    [Header("Train Time")]
+    [SerializeField]
+    float trainTime = 10f;
+    public Text trainTimeText;
+
     [Header("Canvas Group")]
     [SerializeField]
     CanvasGroup breakUI;
     [SerializeField]
     CanvasGroup gameUI;
+    [SerializeField]
+    CanvasGroup trainUI;
     public CanvasGroup playerOnePanel;
     public CanvasGroup playerTwoPanel;
 
@@ -61,7 +68,7 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-        camView = GameObject.FindWithTag("MainCamera").GetComponent<ChangeView>();
+        camView = Camera.main.GetComponent<ChangeView>();
     }
     private void Update()
     {
@@ -75,6 +82,8 @@ public class GameManager : MonoBehaviour
         }
         if (isRoundStart)
         {
+            GameObject.FindGameObjectWithTag("Player One").GetComponent<PlayerController>().enabled = true;
+            GameObject.FindGameObjectWithTag("Player Two").GetComponent<PlayerController>().enabled = true;
             if (gameTime > 0)
             {
                 gameTime -= Time.deltaTime;
@@ -85,6 +94,11 @@ public class GameManager : MonoBehaviour
                 isRoundStart = false;
                 ChangeRounds();
             }
+        }
+        else
+        {
+            GameObject.FindGameObjectWithTag("Player One").GetComponent<PlayerController>().enabled = false;
+            GameObject.FindGameObjectWithTag("Player Two").GetComponent<PlayerController>().enabled = false;
         }
         if (isBreakStart)
         {
@@ -102,6 +116,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                animTraining.SetBool("StartTraining", true);
                 StartCoroutine(StartTraining());
                 ChangeRounds();
             }
@@ -109,29 +124,45 @@ public class GameManager : MonoBehaviour
         if (isTrainingStart)
         {
             animHUD.SetBool("OpenBreakUI", false);
+            if (trainTime > 0)
+            {
+                trainTime -= Time.deltaTime;
+            }
+            else
+            {
+                isRoundStart = true;
+                isTrainingStart = false;
+                animTraining.SetBool("StartTraining", false);
+                ChangeRounds();
+            }
         }
 
         breakTimeText.text = breakTime.ToString("F0");
         gameTimeText.text = gameTime.ToString("F0");
+        trainTimeText.text = trainTime.ToString("F0");
     }
 
     public void ChangeRounds()
     {
         gameTime = 10;
         breakTime = 5;
-        if (isBreakStart)
-        {
-            gameUI.alpha = 0;
-        }
+        trainTime = 10;
         if (isRoundStart)
         {
             gameUI.alpha = 1;
             breakUI.alpha = 0;
+            trainUI.alpha = 0;
+        }
+        if (isBreakStart)
+        {
+            gameUI.alpha = 0;
+            trainUI.alpha = 0;
         }
         if (isTrainingStart)
         {
             gameUI.alpha = 0;
             breakUI.alpha = 0;
+            trainUI.alpha = 1;
         }
     }
 
@@ -204,7 +235,6 @@ public class GameManager : MonoBehaviour
         isBreakStart = false;
         isRoundStart = false;
         isTrainingStart = true;
-        animTraining.SetBool("StartTraining", true);
         yield return new WaitForSeconds(3);
     }
 

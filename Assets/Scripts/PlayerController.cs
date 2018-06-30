@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviour
                         Player player = GetComponent<Player>();
                         playerOne.SetBool("isHitting", true);
                         playerOne.SetBool("isHittingRight", true);
-                        player.StaminaCost(15);
+                        player.StaminaCost(2);
                         playerIsPunching = true;
                         hasPunchReset = false;
                     }
