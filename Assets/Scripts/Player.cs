@@ -52,6 +52,10 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Dead");
         }
+        if (health >= maxHealth)
+        {
+            health = maxHealth;
+        }
         if (stamina < maxStamina)
         {
             stamina += 3 * Time.deltaTime;
@@ -59,6 +63,10 @@ public class Player : MonoBehaviour
         if (stamina <= 0)
         {
             stamina = 0;
+        }
+        if (stamina >= maxStamina)
+        {
+            stamina = maxStamina;
         }
 
         healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, health / maxHealth, 5 * Time.deltaTime);

@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
 
     bool isRoundStart = true;
     bool isBreakStart = false;
+    bool isTrainingStart = false;
+
+    int indexSelection;
 
     void Start()
     {
@@ -65,10 +68,12 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                ChangeRounds();
-                isBreakStart = !isBreakStart;
-                isRoundStart = !isRoundStart;
+                StartTraining();
             }
+        }
+        if (isTrainingStart)
+        {
+            Debug.Log("start teaining");
         }
         breakTimeText.text = breakTime.ToString("F0");
         gameTimeText.text = gameTime.ToString("F0");
@@ -122,5 +127,10 @@ public class GameManager : MonoBehaviour
             PlayerTwo.Instance.TrainingResult(GameChoice.Rest, 0);
         }
         #endregion
+    }
+
+    public void StartTraining()
+    {
+
     }
 }
