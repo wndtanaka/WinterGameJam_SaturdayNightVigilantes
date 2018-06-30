@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerOne : Player
 {
@@ -15,6 +16,18 @@ public class PlayerOne : Player
             }
             return instance;
         }
+    }
+
+    [SerializeField]
+    Image healthBar;
+    [SerializeField]
+    Image staminaBar;
+
+    protected override void Update()
+    {
+        base.Update();
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, health / maxHealth, 5 * Time.deltaTime);
+        staminaBar.fillAmount = Mathf.Lerp(staminaBar.fillAmount, stamina / maxStamina, 5 * Time.deltaTime);
     }
 
     public void TrainingResult(GameChoice gameChoice, float amount)
