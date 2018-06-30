@@ -85,14 +85,14 @@ public class PlayerController : MonoBehaviour
                     {
                         transform.Translate(-Vector3.right * speed * Time.deltaTime);
 
-                        transform.LookAt(otherPlayer.transform);
+                        //transform.LookAt(otherPlayer.transform);
                     }
 
                     if (Input.GetKey(KeyCode.D))
                     {
                         transform.Translate(Vector3.right * speed * Time.deltaTime);
 
-                        transform.LookAt(otherPlayer.transform);
+                        //transform.LookAt(otherPlayer.transform);
                     }
                 }
 
@@ -128,20 +128,22 @@ public class PlayerController : MonoBehaviour
                     {
                         transform.Translate(Vector3.right * speed * Time.deltaTime);
 
-                        transform.LookAt(otherPlayer.transform);
+                        //transform.LookAt(otherPlayer.transform);
                     }
 
                     if (Input.GetKey(KeyCode.LeftArrow))
                     {
                         transform.Translate(-Vector3.right * speed * Time.deltaTime);
 
-                        transform.LookAt(otherPlayer.transform);
+                        //transform.LookAt(otherPlayer.transform);
                     }
                 }
                 break;
             default:
                 break;
         }
+
+        transform.LookAt(otherPlayer.transform);
 
         /*if (otherPlayer != null)
         {
