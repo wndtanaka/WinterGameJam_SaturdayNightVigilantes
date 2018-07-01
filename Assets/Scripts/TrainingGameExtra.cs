@@ -336,6 +336,8 @@ public class TrainingGameExtra : MonoBehaviour
 
                             if (Input.GetKeyDown(o_Action))
                             {
+                                player1PunchbagAnim.SetBool("BoxingTraining", true);
+
                                 bagStart1 = false;
                             }
                         }
@@ -346,20 +348,20 @@ public class TrainingGameExtra : MonoBehaviour
                             {
                                 PlayerOne.Instance.TrainingResult(GameChoice.PunchingBag, 5);
                                 countPunchOne = 0;
-                                bagStart1 = true;
+                                //bagStart1 = true;
                                 return;
                             }
                             if (bagMove1 >= 0 && bagMove1 <= 20)
                             {
                                 //Debug.Log("Player Wins PUNCHING BAG!");
                                 countPunchOne++;
-                                bagStart1 = true;
+                                //bagStart1 = true;
                             }
 
                             if (bagMove1 < 0 || bagMove1 > 20)
                             {
                                 //Debug.Log("Player Loses PUNCHING BAG!");
-                                bagStart1 = true;
+                                //bagStart1 = true;
                             }
                         }
                         #endregion
@@ -548,6 +550,8 @@ public class TrainingGameExtra : MonoBehaviour
 
                             if (Input.GetKeyDown(t_Action))
                             {
+                                player2PunchbagAnim.SetBool("BoxingTraining", true);
+
                                 bagStart2 = false;
                             }
                         }
@@ -558,19 +562,19 @@ public class TrainingGameExtra : MonoBehaviour
                             {
                                 PlayerTwo.Instance.TrainingResult(GameChoice.PunchingBag, 5);
                                 countPunchTwo = 0;
-                                bagStart2 = true;
+                                //bagStart2 = true;
                                 return;
                             }
                             if (bagMove2 >= 0 && bagMove2 <= 20)
                             {
                                 countPunchTwo++;
-                                bagStart2 = true;
+                                //bagStart2 = true;
                                 Debug.Log("Player Wins PUNCHING BAG!");
                             }
 
                             if (bagMove2 < 0 || bagMove2 > 20)
                             {
-                                bagStart2 = true;
+                                //bagStart2 = true;
                                 Debug.Log("Player Loses PUNCHING BAG!");
                             }
                         }
@@ -1038,41 +1042,46 @@ public class TrainingGameExtra : MonoBehaviour
     {
         if (GameManager.instance.gameChoiceOne == GameChoice.PunchingBag)
         {
-            if (punchingBagOne.transform.localPosition.x < 150 && rightOne)
+            if (bagStart1 == true)
             {
-                punchingBagOne.transform.localPosition += new Vector3(5, 0, 0);
+                if (punchingBagOne.transform.localPosition.x < 150 && rightOne)
+                {
+                    punchingBagOne.transform.localPosition += new Vector3(5, 0, 0);
+                }
+                if (punchingBagOne.transform.localPosition.x >= 150)
+                {
+                    rightOne = false;
+                }
+                if (rightOne == false)
+                {
+                    punchingBagOne.transform.localPosition -= new Vector3(5, 0, 0);
+                }
+                if (punchingBagOne.transform.localPosition.x <= -150)
+                {
+                    rightOne = true;
+                }
             }
-            if (punchingBagOne.transform.localPosition.x >= 150)
-            {
-                rightOne = false;
-            }
-            if (rightOne == false)
-            {
-                punchingBagOne.transform.localPosition -= new Vector3(5, 0, 0);
-            }
-            if (punchingBagOne.transform.localPosition.x <= -150)
-            {
-                rightOne = true;
-            }
-
         }
         if (GameManager.instance.gameChoiceTwo == GameChoice.PunchingBag)
         {
-            if (punchingBagTwo.transform.localPosition.x < 150 && rightTwo)
+            if (bagStart2 == true)
             {
-                punchingBagTwo.transform.localPosition += new Vector3(5, 0, 0);
-            }
-            if (punchingBagTwo.transform.localPosition.x >= 150)
-            {
-                rightTwo = false;
-            }
-            if (rightTwo == false)
-            {
-                punchingBagTwo.transform.localPosition -= new Vector3(5, 0, 0);
-            }
-            if (punchingBagTwo.transform.localPosition.x <= -150)
-            {
-                rightTwo = true;
+                if (punchingBagTwo.transform.localPosition.x < 150 && rightTwo)
+                {
+                    punchingBagTwo.transform.localPosition += new Vector3(5, 0, 0);
+                }
+                if (punchingBagTwo.transform.localPosition.x >= 150)
+                {
+                    rightTwo = false;
+                }
+                if (rightTwo == false)
+                {
+                    punchingBagTwo.transform.localPosition -= new Vector3(5, 0, 0);
+                }
+                if (punchingBagTwo.transform.localPosition.x <= -150)
+                {
+                    rightTwo = true;
+                }
             }
         }
     }
