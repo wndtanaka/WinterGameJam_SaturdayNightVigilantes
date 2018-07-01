@@ -226,7 +226,6 @@ public class TrainingGameExtra : MonoBehaviour
                         #region Player 1 Heavy-Bag Mini-Game
                         if (bagStart1 == true)
                         {
-                        
                             bagMove1 = punchingBagOne.transform.localPosition.magnitude;
 
                             if (Input.GetKeyDown(o_Action))
@@ -415,6 +414,14 @@ public class TrainingGameExtra : MonoBehaviour
             if (GameManager.instance.gameChoiceTwo == GameChoice.Treadmill)
             {
                 treadmillbarTwo.fillAmount = Mathf.Lerp(treadmillbarTwo.fillAmount, treadWinScore2 / 100, 5 * Time.deltaTime);
+            }
+            if (GameManager.instance.gameChoiceOne == GameChoice.PullUp)
+            {
+                pullUpOne.fillAmount = Mathf.Lerp(pullUpOne.fillAmount, pullBar1 / 100, 5 * Time.deltaTime);
+            }
+            if (GameManager.instance.gameChoiceTwo == GameChoice.PullUp)
+            {
+                pullUpTwo.fillAmount = Mathf.Lerp(pullUpTwo.fillAmount, pullBar2 / 100, 5 * Time.deltaTime);
             }
         }
     }
