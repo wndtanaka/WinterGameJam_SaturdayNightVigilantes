@@ -47,9 +47,14 @@ public class TrainingGameExtra : MonoBehaviour
 
     public Image punchingBagOne;
     public Image punchingBagTwo;
-
     public bool rightOne = true;
     public bool rightTwo = true;
+    public int countPunchOne;
+    public int countPunchTwo;
+
+    public Image pullUpOne;
+    public Image pullUpTwo;
+
 
     void Start()
     {
@@ -74,7 +79,7 @@ public class TrainingGameExtra : MonoBehaviour
         #region PunchBag Starts
         bagMove1 = 0f;
         bagNeedle1 = 50f;
-        bagUp1 = 10f;
+        bagUp1 = 100f;
 
         bagStart1 = true;
         bagBottom1 = true;
@@ -82,7 +87,7 @@ public class TrainingGameExtra : MonoBehaviour
 
         bagMove2 = 0f;
         bagNeedle2 = 50f;
-        bagUp1 = 10f;
+        bagUp1 = 100f;
 
         bagStart2 = true;
         bagBottom2 = true;
@@ -221,31 +226,8 @@ public class TrainingGameExtra : MonoBehaviour
                         #region Player 1 Heavy-Bag Mini-Game
                         if (bagStart1 == true)
                         {
-                            if (bagBottom1 == true && bagTop1 == false)
-                            {
-                                bagMove1 += bagUp1 * Time.deltaTime;
-                            }
-
-                            if (bagBottom1 == false && bagTop1 == true)
-                            {
-                                bagMove1 -= bagUp1 * Time.deltaTime;
-                            }
-
-                            if (bagMove1 >= 100f)
-                            {
-                                bagMove1 = 100f;
-
-                                bagBottom1 = false;
-                                bagTop1 = true;
-                            }
-
-                            if (bagMove1 <= 0f)
-                            {
-                                bagMove1 = 0f;
-
-                                bagBottom1 = true;
-                                bagTop1 = false;
-                            }
+                        
+                            bagMove1 = punchingBagOne.transform.localPosition.magnitude;
 
                             if (Input.GetKeyDown(o_Action))
                             {
@@ -255,14 +237,17 @@ public class TrainingGameExtra : MonoBehaviour
 
                         if (bagStart1 == false)
                         {
-                            if (bagMove1 >= 45 && bagMove1 <= 55)
+                            if (bagMove1 >= 0 && bagMove1 <= 20)
                             {
                                 Debug.Log("Player Wins PUNCHING BAG!");
+                                countPunchOne++;
+                                bagStart1 = true;
                             }
 
-                            if (bagMove1 < 45 || bagMove1 > 55)
+                            if (bagMove1 < 0 || bagMove1 > 20)
                             {
                                 Debug.Log("Player Loses PUNCHING BAG!");
+                                bagStart1 = true;
                             }
                         }
                         #endregion
@@ -379,31 +364,7 @@ public class TrainingGameExtra : MonoBehaviour
                         #region Player 2 Heavy-Bag Mini-Game
                         if (bagStart2 == true)
                         {
-                            if (bagBottom2 == true && bagTop2 == false)
-                            {
-                                bagMove2 += bagUp1 * Time.deltaTime;
-                            }
-
-                            if (bagBottom2 == false && bagTop2 == true)
-                            {
-                                bagMove2 -= bagUp1 * Time.deltaTime;
-                            }
-
-                            if (bagMove2 >= 100f)
-                            {
-                                bagMove2 = 100f;
-
-                                bagBottom2 = false;
-                                bagTop2 = true;
-                            }
-
-                            if (bagMove2 <= 0f)
-                            {
-                                bagMove2 = 0f;
-
-                                bagBottom2 = true;
-                                bagTop2 = false;
-                            }
+                            bagMove2 = punchingBagTwo.transform.localPosition.magnitude;
 
                             if (Input.GetKeyDown(t_Action))
                             {
@@ -413,13 +374,16 @@ public class TrainingGameExtra : MonoBehaviour
 
                         if (bagStart2 == false)
                         {
-                            if (bagMove2 >= 45 && bagMove2 <= 55)
+                            if (bagMove2 >= 0 && bagMove2 <= 20)
                             {
+                                countPunchTwo++;
+                                bagStart2 = true;
                                 Debug.Log("Player Wins PUNCHING BAG!");
                             }
 
-                            if (bagMove2 < 45 || bagMove2 > 55)
+                            if (bagMove2 < 0 || bagMove2 > 20)
                             {
+                                bagStart2 = true;
                                 Debug.Log("Player Loses PUNCHING BAG!");
                             }
                         }
