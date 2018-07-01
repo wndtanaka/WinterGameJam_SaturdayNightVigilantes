@@ -347,11 +347,11 @@ public class TrainingGame : MonoBehaviour
                         {
                             trainingTimer -= 1f * Time.deltaTime;
 
-                            treadWinScore1 -= runDown1 * Time.deltaTime;
+                            treadWinScore2 -= runDown1 * Time.deltaTime;
 
-                            if (treadWinScore1 <= 0f)
+                            if (treadWinScore2 <= 0f)
                             {
-                                treadWinScore1 = 0f;
+                                treadWinScore2 = 0f;
                             }
 
                             if (trainingTimer <= 0)
@@ -364,19 +364,19 @@ public class TrainingGame : MonoBehaviour
 
                         if (Input.GetKeyDown(t_Action) && treadStart == true)
                         {
-                            treadWinScore1 = treadWinScore1 + treadRunUp1;
+                            treadWinScore2 = treadWinScore2 + treadRunUp1;
                         }
 
-                        if (treadStart == false && treadWinScore1 >= 100f)
+                        if (treadStart == false && treadWinScore2 >= 100f)
                         {
-                            player1Won = true;
+                            player2Won = true;
 
                             Debug.Log("Player 1 Won!");
                         }
 
-                        if (treadStart == false && treadWinScore1 < 100f)
+                        if (treadStart == false && treadWinScore2 < 100f)
                         {
-                            player1Lost = true;
+                            player2Lost = true;
 
                             Debug.Log("Player 1 Lost!");
                         }
