@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrainingGame : MonoBehaviour {
+public class TrainingGame : MonoBehaviour
+{
 
     [Header("Player One")] //Player One's button binds during mini-game
     public KeyCode o_Action = KeyCode.Space;
@@ -54,13 +55,14 @@ public class TrainingGame : MonoBehaviour {
 
     private bool choiceSelected = false;
 
+    [SerializeField]
     private ChangeView _view;
 
     void Start()
     {
         choiceSelected = false;
 
-        _view = GameObject.FindWithTag("Main Camera").GetComponent<ChangeView>();
+        _view = GameObject.FindWithTag("MainCamera").GetComponent<ChangeView>();
 
         #region Treadmill Starts
         treadWinScore1 = 0f;
@@ -114,10 +116,332 @@ public class TrainingGame : MonoBehaviour {
         #endregion
     }
 
+    void TrainingSelection(PlayerType player, GameChoice gameChoice)
+    {
+        switch (player)
+        {
+            case PlayerType.PlayerOne:
+                switch (gameChoice)
+                {
+                    case GameChoice.PullUp:
+                        #region Player 1 Pull-Up Mini-Game
+                        if (pullStart1 == true)
+                        {
+                            if (pullReset1 == false)
+                            {
+                                if (Input.GetKey(o_Action) && pullRelease1 == false)
+                                {
+                                    pullBar1 += pull1 * Time.deltaTime;
+                                }
+
+                                else
+                                {
+                                    pullBar1 -= (pull1 * 3) * Time.deltaTime;
+                                }
+
+                                if (pullBar1 <= 0f)
+                                {
+                                    pullBar1 = 0f;
+                                }
+
+                                if (pullBar1 >= 100f)
+                                {
+                                    if (pullCounted1 == false)
+                                    {
+                                        pullCount1 += 1;
+
+                                        pullCounted1 = true;
+                                    }
+
+                                    pullBar1 = 100f;
+                                }
+
+                                if (Input.GetKeyUp(o_Action))
+                                {
+                                    pullRelease1 = true;
+
+                                    if (pullCounted1 == true)
+                                    {
+                                        pullCounted1 = false;
+                                    }
+
+                                    pullReset1 = true;
+                                }
+                            }
+
+                            if (pullReset1 == true)
+                            {
+                                pullBar1 -= (pull1 * 6) * Time.deltaTime;
+
+                                if (pullBar1 <= 0f)
+                                {
+                                    pullRelease1 = false;
+
+                                    pullReset1 = false;
+                                }
+                            }
+                        }
+                        #endregion
+                        break;
+                    case GameChoice.Treadmill:
+                        #region Player 1 Treadmill Mini-Game
+                        if (treadStart == true)
+                        {
+                            trainingTimer -= 1f * Time.deltaTime;
+
+                            treadWinScore1 -= runDown1 * Time.deltaTime;
+
+                            if (treadWinScore1 <= 0f)
+                            {
+                                treadWinScore1 = 0f;
+                            }
+
+                            if (trainingTimer <= 0)
+                            {
+                                trainingTimer = 0f;
+
+                                treadStart = false;
+                            }
+                        }
+
+                        if (Input.GetKeyDown(o_Action) && treadStart == true)
+                        {
+                            treadWinScore1 = treadWinScore1 + treadRunUp1;
+                        }
+
+                        if (treadStart == false && treadWinScore1 >= 100f)
+                        {
+                            player1Won = true;
+
+                            Debug.Log("Player 1 Won!");
+                        }
+
+                        if (treadStart == false && treadWinScore1 < 100f)
+                        {
+                            player1Lost = true;
+
+                            Debug.Log("Player 1 Lost!");
+                        }
+                        #endregion
+                        break;
+                    case GameChoice.PunchingBag:
+                        #region Player 1 Heavy-Bag Mini-Game
+                        if (bagStart1 == true)
+                        {
+                            if (bagBottom1 == true && bagTop1 == false)
+                            {
+                                bagMove1 += bagUp1 * Time.deltaTime;
+                            }
+
+                            if (bagBottom1 == false && bagTop1 == true)
+                            {
+                                bagMove1 -= bagUp1 * Time.deltaTime;
+                            }
+
+                            if (bagMove1 >= 100f)
+                            {
+                                bagMove1 = 100f;
+
+                                bagBottom1 = false;
+                                bagTop1 = true;
+                            }
+
+                            if (bagMove1 <= 0f)
+                            {
+                                bagMove1 = 0f;
+
+                                bagBottom1 = true;
+                                bagTop1 = false;
+                            }
+
+                            if (Input.GetKeyDown(o_Action))
+                            {
+                                bagStart1 = false;
+                            }
+                        }
+
+                        if (bagStart1 == false)
+                        {
+                            if (bagMove1 >= 45 && bagMove1 <= 55)
+                            {
+                                Debug.Log("Player Wins PUNCHING BAG!");
+                            }
+
+                            if (bagMove1 < 45 || bagMove1 > 55)
+                            {
+                                Debug.Log("Player Loses PUNCHING BAG!");
+                            }
+                        }
+                        #endregion
+                        break;
+                    case GameChoice.Rest:
+                        break;
+                }
+                break;
+            case PlayerType.PlayerTwo:
+                switch (gameChoice)
+                {
+                    case GameChoice.PullUp:
+                        #region Player 1 Pull-Up Mini-Game
+                        if (pullStart1 == true)
+                        {
+                            if (pullReset1 == false)
+                            {
+                                if (Input.GetKey(o_Action) && pullRelease1 == false)
+                                {
+                                    pullBar1 += pull1 * Time.deltaTime;
+                                }
+
+                                else
+                                {
+                                    pullBar1 -= (pull1 * 3) * Time.deltaTime;
+                                }
+
+                                if (pullBar1 <= 0f)
+                                {
+                                    pullBar1 = 0f;
+                                }
+
+                                if (pullBar1 >= 100f)
+                                {
+                                    if (pullCounted1 == false)
+                                    {
+                                        pullCount1 += 1;
+
+                                        pullCounted1 = true;
+                                    }
+
+                                    pullBar1 = 100f;
+                                }
+
+                                if (Input.GetKeyUp(o_Action))
+                                {
+                                    pullRelease1 = true;
+
+                                    if (pullCounted1 == true)
+                                    {
+                                        pullCounted1 = false;
+                                    }
+
+                                    pullReset1 = true;
+                                }
+                            }
+
+                            if (pullReset1 == true)
+                            {
+                                pullBar1 -= (pull1 * 6) * Time.deltaTime;
+
+                                if (pullBar1 <= 0f)
+                                {
+                                    pullRelease1 = false;
+
+                                    pullReset1 = false;
+                                }
+                            }
+                        }
+                        #endregion
+                        break;
+                    case GameChoice.Treadmill:
+                        #region Player 1 Treadmill Mini-Game
+                        if (treadStart == true)
+                        {
+                            trainingTimer -= 1f * Time.deltaTime;
+
+                            treadWinScore1 -= runDown1 * Time.deltaTime;
+
+                            if (treadWinScore1 <= 0f)
+                            {
+                                treadWinScore1 = 0f;
+                            }
+
+                            if (trainingTimer <= 0)
+                            {
+                                trainingTimer = 0f;
+
+                                treadStart = false;
+                            }
+                        }
+
+                        if (Input.GetKeyDown(o_Action) && treadStart == true)
+                        {
+                            treadWinScore1 = treadWinScore1 + treadRunUp1;
+                        }
+
+                        if (treadStart == false && treadWinScore1 >= 100f)
+                        {
+                            player1Won = true;
+
+                            Debug.Log("Player 1 Won!");
+                        }
+
+                        if (treadStart == false && treadWinScore1 < 100f)
+                        {
+                            player1Lost = true;
+
+                            Debug.Log("Player 1 Lost!");
+                        }
+                        #endregion
+                        break;
+                    case GameChoice.PunchingBag:
+                        #region Player 2 Heavy-Bag Mini-Game
+                        if (bagStart2 == true)
+                        {
+                            if (bagBottom2 == true && bagTop2 == false)
+                            {
+                                bagMove2 += bagUp1 * Time.deltaTime;
+                            }
+
+                            if (bagBottom2 == false && bagTop2 == true)
+                            {
+                                bagMove2 -= bagUp1 * Time.deltaTime;
+                            }
+
+                            if (bagMove2 >= 100f)
+                            {
+                                bagMove2 = 100f;
+
+                                bagBottom2 = false;
+                                bagTop2 = true;
+                            }
+
+                            if (bagMove2 <= 0f)
+                            {
+                                bagMove2 = 0f;
+
+                                bagBottom2 = true;
+                                bagTop2 = false;
+                            }
+
+                            if (Input.GetKeyDown(t_Action))
+                            {
+                                bagStart2 = false;
+                            }
+                        }
+
+                        if (bagStart2 == false)
+                        {
+                            if (bagMove2 >= 45 && bagMove2 <= 55)
+                            {
+                                Debug.Log("Player Wins PUNCHING BAG!");
+                            }
+
+                            if (bagMove2 < 45 || bagMove2 > 55)
+                            {
+                                Debug.Log("Player Loses PUNCHING BAG!");
+                            }
+                        }
+                        #endregion
+                        break;
+                    case GameChoice.Rest:
+                        break;
+                }
+                break;
+        }
+    }
+
     void Update()
     {
         
-
         if (_view.isTraining)
         {
             if (choiceSelected)
@@ -579,4 +903,3 @@ public class TrainingGame : MonoBehaviour {
         }
     }
 }
-// balbalbla
