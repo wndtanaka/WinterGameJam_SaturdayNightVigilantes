@@ -42,6 +42,10 @@ public class TrainingGameExtra : MonoBehaviour
     public int pullCount1, pullCount2;
     public bool playerOneChosen, playerTwoChosen;
 
+    [Header("Animators")]
+    public Animator player1PullupsAnim;
+    public Animator player1TreadmillAnim, player1Punchbag, player2PullupsAnim;
+
     private bool choiceSelected = false;
 
     private bool trainEnded = false;
@@ -170,6 +174,8 @@ public class TrainingGameExtra : MonoBehaviour
                         if (playerOneChosen == false)
                         {
                             pullStart1 = true;
+                            //player1PullupsAnim.SetBool("PullupTraining", true);
+
                             playerOneChosen = true;
                         }
 
@@ -180,6 +186,8 @@ public class TrainingGameExtra : MonoBehaviour
                                 if (Input.GetKey(o_Action) && pullRelease1 == false)
                                 {
                                     pullBar1 += pull1 * Time.deltaTime;
+
+                                    player1PullupsAnim.SetBool("PullupTraining", true);
                                 }
 
                                 else
@@ -206,6 +214,8 @@ public class TrainingGameExtra : MonoBehaviour
 
                                 if (Input.GetKeyUp(o_Action))
                                 {
+                                    player1PullupsAnim.SetBool("PullupTraining", false);
+
                                     pullRelease1 = true;
 
                                     if (pullCounted1 == true)
@@ -239,7 +249,7 @@ public class TrainingGameExtra : MonoBehaviour
                             }
                             if (player1Won == true)
                             {
-                                PlayerOne.Instance.TrainingResult(GameChoice.PullUp, 5);
+                                PlayerOne.Instance.TrainingResult(GameChoice.PullUp, 25);
                                 player1Won = false;
                             }
                         }
@@ -290,7 +300,7 @@ public class TrainingGameExtra : MonoBehaviour
                         }
                         if (player1Won == true && trainEnded)
                         {
-                            PlayerOne.Instance.TrainingResult(GameChoice.Treadmill, 5);
+                            PlayerOne.Instance.TrainingResult(GameChoice.Treadmill, 1);
                             player1Won = false;
                         }
                         if (treadStart1 == false && treadWinScore1 < 100f)
@@ -364,6 +374,8 @@ public class TrainingGameExtra : MonoBehaviour
                                 if (Input.GetKey(t_Action) && pullRelease2 == false)
                                 {
                                     pullBar2 += pull2 * Time.deltaTime;
+
+                                    player2PullupsAnim.SetBool("PullupTraining", true);
                                 }
 
                                 else
@@ -390,6 +402,8 @@ public class TrainingGameExtra : MonoBehaviour
 
                                 if (Input.GetKeyUp(t_Action))
                                 {
+                                    player2PullupsAnim.SetBool("PullupTraining", false);
+
                                     pullRelease2 = true;
 
                                     if (pullCounted2 == true)
@@ -423,7 +437,7 @@ public class TrainingGameExtra : MonoBehaviour
                             }
                             if (player2Won == true)
                             {
-                                PlayerTwo.Instance.TrainingResult(GameChoice.PullUp, 5);
+                                PlayerTwo.Instance.TrainingResult(GameChoice.PullUp, 25);
                                 player2Won = false;
                             }
                         }
@@ -484,7 +498,7 @@ public class TrainingGameExtra : MonoBehaviour
 
                         if (player2Won == true && trainEnded)
                         {
-                            PlayerTwo.Instance.TrainingResult(GameChoice.Treadmill, 5);
+                            PlayerTwo.Instance.TrainingResult(GameChoice.Treadmill, 1);
                             player2Won = false;
                         }
 
