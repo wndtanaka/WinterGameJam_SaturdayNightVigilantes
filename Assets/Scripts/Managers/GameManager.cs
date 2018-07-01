@@ -53,9 +53,9 @@ public class GameManager : MonoBehaviour
 
     public TrainingMode[] trainingMode;
 
-    bool isRoundStart = true;
-    bool isBreakStart = false;
-    bool isTrainingStart = false;
+    public bool isRoundStart = true;
+    public bool isBreakStart = false;
+    public bool isTrainingStart = false;
 
     public bool preRound = true;
 
@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
     public void ChangeRounds()
     {
         preRoundTime = 3;
-        gameTime = 60;
+        gameTime = 45;
         breakTime = 5;
         trainTime = 15;
         if (isRoundStart)
