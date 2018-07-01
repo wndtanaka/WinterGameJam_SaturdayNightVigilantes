@@ -920,12 +920,10 @@ public class TrainingGame : MonoBehaviour
             if (GameManager.instance.trainingOneSelected == true)
             {
                 TrainingSelection(PlayerOne.Instance.playerType, GameManager.instance.gameChoiceOne);
-                Debug.Log("Player One trains");
             }
             if (GameManager.instance.trainingTwoSelected == true)
             {
                 TrainingSelection(PlayerTwo.Instance.playerType, GameManager.instance.gameChoiceTwo);
-                Debug.Log("Player Two trains");
             }
         }
 
