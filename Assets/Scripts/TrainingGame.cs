@@ -22,8 +22,8 @@ public class TrainingGame : MonoBehaviour
     public T_gamechoice t_gamechoice;
 
     [Header("Treadmill")]
-    public float treadWinScore1, treadWinScore2;
-    public float treadRunUp1, treadRunUp2;
+    public float treadWinScore1;
+    public float treadRunUp1, treadRunUp2, treadWinScore2;
     public float runDown1, runDown2;
     public bool player1Lost, player1Won, treadStart, player2Lost, player2Won;
     public float trainingTimer;
@@ -101,6 +101,7 @@ public class TrainingGame : MonoBehaviour
         pullBar2 = 0f;
 
         pull1 = 40f;
+        pull2 = 40f;
 
         pullStart1 = true;
         pullStart2 = true;
@@ -282,67 +283,67 @@ public class TrainingGame : MonoBehaviour
                 switch (gameChoice)
                 {
                     case GameChoice.PullUp:
-                        #region Player 1 Pull-Up Mini-Game
-                        if (pullStart1 == true)
+                        #region Player 2 Pull-Up Mini-Game
+                        if (pullStart2 == true)
                         {
-                            if (pullReset1 == false)
+                            if (pullReset2 == false)
                             {
-                                if (Input.GetKey(t_Action) && pullRelease1 == false)
+                                if (Input.GetKey(t_Action) && pullRelease2 == false)
                                 {
-                                    pullBar1 += pull1 * Time.deltaTime;
+                                    pullBar2 += pull2 * Time.deltaTime;
                                 }
 
                                 else
                                 {
-                                    pullBar1 -= (pull1 * 3) * Time.deltaTime;
+                                    pullBar2 -= (pull2 * 3) * Time.deltaTime;
                                 }
 
-                                if (pullBar1 <= 0f)
+                                if (pullBar2 <= 0f)
                                 {
-                                    pullBar1 = 0f;
+                                    pullBar2 = 0f;
                                 }
 
-                                if (pullBar1 >= 100f)
+                                if (pullBar2 >= 100f)
                                 {
-                                    if (pullCounted1 == false)
+                                    if (pullCounted2 == false)
                                     {
-                                        pullCount1 += 1;
+                                        pullCount2 += 1;
 
-                                        pullCounted1 = true;
+                                        pullCounted2 = true;
                                     }
 
-                                    pullBar1 = 100f;
+                                    pullBar2 = 100f;
                                 }
 
                                 if (Input.GetKeyUp(t_Action))
                                 {
-                                    pullRelease1 = true;
+                                    pullRelease2 = true;
 
-                                    if (pullCounted1 == true)
+                                    if (pullCounted2 == true)
                                     {
-                                        pullCounted1 = false;
+                                        pullCounted2 = false;
                                     }
 
-                                    pullReset1 = true;
+                                    pullReset2 = true;
                                 }
                             }
 
-                            if (pullReset1 == true)
+                            if (pullReset2 == true)
                             {
-                                pullBar1 -= (pull1 * 6) * Time.deltaTime;
+                                pullBar2 -= (pull2 * 6) * Time.deltaTime;
 
-                                if (pullBar1 <= 0f)
+                                if (pullBar2 <= 0f)
                                 {
-                                    pullRelease1 = false;
+                                    pullRelease2 = false;
 
-                                    pullReset1 = false;
+                                    pullReset2 = false;
                                 }
                             }
                         }
                         #endregion
                         break;
                     case GameChoice.Treadmill:
-                        #region Player 1 Treadmill Mini-Game
+                        #region Player 2 Treadmill Mini-Game
                         if (treadStart == true)
                         {
                             trainingTimer -= 1f * Time.deltaTime;
