@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     [Header("Game Time")]
     [SerializeField]
     float gameTime = 3;
+    [SerializeField]
+    float preRoundTime = 3;
     public Text gameTimeText;
 
     [Header("Break Time")]
@@ -55,6 +57,8 @@ public class GameManager : MonoBehaviour
     bool isBreakStart = false;
     bool isTrainingStart = false;
 
+    bool preRound = true;
+
     public bool trainingOneSelected = false;
     public bool trainingTwoSelected = false;
 
@@ -69,6 +73,7 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
         camView = Camera.main.GetComponent<ChangeView>();
+        preRound = true;
     }
     private void Update()
     {
@@ -88,15 +93,25 @@ public class GameManager : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("Player One").GetComponent<PlayerController>().enabled = true;
             GameObject.FindGameObjectWithTag("Player Two").GetComponent<PlayerController>().enabled = true;
-            if (gameTime > 0)
+            if (preRoundTime > 0)
             {
-                gameTime -= Time.deltaTime;
+                preRoundTime -= Time.deltaTime;
+                camView.isTraining = false;
+                camView.inFight = false;
             }
             else
             {
-                isBreakStart = true;
-                isRoundStart = false;
-                ChangeRounds();
+                if (gameTime > 0)
+                {
+                    gameTime -= Time.deltaTime;
+                    camView.inFight = true;
+                }
+                else
+                {
+                    isBreakStart = true;
+                    isRoundStart = false;
+                    ChangeRounds();
+                }
             }
         }
         else
@@ -110,6 +125,7 @@ public class GameManager : MonoBehaviour
             isTrainingStart = false;
             animHUD.SetBool("OpenBreakUI", true);
             camView.isTraining = true;
+            camView.inFight = false;
 
             breakUI.alpha = Mathf.Lerp(breakUI.alpha, 1, 2 * Time.deltaTime);
 
@@ -154,11 +170,13 @@ public class GameManager : MonoBehaviour
 
     public void ChangeRounds()
     {
-        gameTime = 10;
+        preRoundTime = 3;
+        gameTime = 60;
         breakTime = 5;
         trainTime = 15;
         if (isRoundStart)
         {
+            preRound = true;
             gameUI.alpha = 1;
             breakUI.alpha = 0;
             trainUI.alpha = 0;
