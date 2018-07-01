@@ -813,17 +813,15 @@ public class TrainingGame : MonoBehaviour
         //        }
         //    }
         //}
-        if (_view.isTraining)
+        if (_view.isTraining && GameManager.instance.trainingOneSelected == true && GameManager.instance.trainingTwoSelected == true)
         {
             if (GameManager.instance.trainingOneSelected == true)
             {
                 TrainingSelection(PlayerOne.Instance.playerType, GameManager.instance.gameChoiceOne);
-                Debug.Log("Player One trains");
             }
             if (GameManager.instance.trainingTwoSelected == true)
             {
                 TrainingSelection(PlayerTwo.Instance.playerType, GameManager.instance.gameChoiceTwo);
-                Debug.Log("Player Two trains");
             }
         }
 

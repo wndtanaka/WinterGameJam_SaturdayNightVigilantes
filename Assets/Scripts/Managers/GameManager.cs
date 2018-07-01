@@ -124,6 +124,12 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(StartTraining());
                 ChangeRounds();
             }
+            if (trainingOneSelected && trainingTwoSelected)
+            {
+                animTraining.SetBool("StartTraining", true);
+                StartCoroutine(StartTraining());
+                ChangeRounds();
+            }
         }
         if (isTrainingStart)
         {
