@@ -137,13 +137,13 @@ public class GameManager : MonoBehaviour
             else
             {
                 animTraining.SetBool("StartTraining", true);
-                StartCoroutine(StartTraining());
+                StartTraining();
                 ChangeRounds();
             }
             if (trainingOneSelected && trainingTwoSelected)
             {
                 animTraining.SetBool("StartTraining", true);
-                StartCoroutine(StartTraining());
+                StartTraining();
                 ChangeRounds();
             }
         }
@@ -250,43 +250,43 @@ public class GameManager : MonoBehaviour
         #endregion
     }
 
-    public IEnumerator StartTraining()
+    public void StartTraining()
     {
         isBreakStart = false;
         isRoundStart = false;
         isTrainingStart = true;
-        yield return new WaitForSeconds(2);
+        //yield return new WaitForSeconds(2);
 
-        switch (gameChoiceOne)
-        {
-            case GameChoice.PullUp:
-                PlayerOne.Instance.TrainingResult(GameChoice.PullUp, 10);
-                break;
-            case GameChoice.Treadmill:
-                PlayerOne.Instance.TrainingResult(GameChoice.Treadmill, 10);
-                break;
-            case GameChoice.PunchingBag:
-                PlayerOne.Instance.TrainingResult(GameChoice.PunchingBag, 10);
-                break;
-            case GameChoice.Rest:
-                PlayerOne.Instance.TrainingResult(GameChoice.Rest, 0);
-                break;
-        }
-        switch (gameChoiceTwo)
-        {
-            case GameChoice.PullUp:
-                PlayerTwo.Instance.TrainingResult(GameChoice.PullUp, 10);
-                break;
-            case GameChoice.Treadmill:
-                PlayerTwo.Instance.TrainingResult(GameChoice.Treadmill, 10);
-                break;
-            case GameChoice.PunchingBag:
-                PlayerTwo.Instance.TrainingResult(GameChoice.PunchingBag, 10);
-                break;
-            case GameChoice.Rest:
-                PlayerTwo.Instance.TrainingResult(GameChoice.Rest, 0);
-                break;
-        }
+        //switch (gameChoiceOne)
+        //{
+        //    case GameChoice.PullUp:
+        //        PlayerOne.Instance.TrainingResult(GameChoice.PullUp, 10);
+        //        break;
+        //    case GameChoice.Treadmill:
+        //        PlayerOne.Instance.TrainingResult(GameChoice.Treadmill, 10);
+        //        break;
+        //    case GameChoice.PunchingBag:
+        //        PlayerOne.Instance.TrainingResult(GameChoice.PunchingBag, 10);
+        //        break;
+        //    case GameChoice.Rest:
+        //        PlayerOne.Instance.TrainingResult(GameChoice.Rest, 0);
+        //        break;
+        //}
+        //switch (gameChoiceTwo)
+        //{
+        //    case GameChoice.PullUp:
+        //        PlayerTwo.Instance.TrainingResult(GameChoice.PullUp, 10);
+        //        break;
+        //    case GameChoice.Treadmill:
+        //        PlayerTwo.Instance.TrainingResult(GameChoice.Treadmill, 10);
+        //        break;
+        //    case GameChoice.PunchingBag:
+        //        PlayerTwo.Instance.TrainingResult(GameChoice.PunchingBag, 10);
+        //        break;
+        //    case GameChoice.Rest:
+        //        PlayerTwo.Instance.TrainingResult(GameChoice.Rest, 0);
+        //        break;
+        //}
     }
 
     [System.Serializable]

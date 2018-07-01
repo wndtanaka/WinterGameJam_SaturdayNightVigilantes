@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TrainingGameExtra: MonoBehaviour
+public class TrainingGameExtra : MonoBehaviour
 {
 
     [Header("Player One")] //Player One's button binds during mini-game
@@ -43,6 +43,8 @@ public class TrainingGameExtra: MonoBehaviour
     public bool playerOneChosen, playerTwoChosen;
 
     private bool choiceSelected = false;
+
+    private bool trainEnded = false;
 
     [SerializeField]
     private ChangeView _view;
@@ -152,6 +154,7 @@ public class TrainingGameExtra: MonoBehaviour
 
             pullStart1 = false;
             pullStart2 = false;
+            trainEnded = true;
         }
     }
 
@@ -226,15 +229,18 @@ public class TrainingGameExtra: MonoBehaviour
                                 }
                             }
 
-                            if (pullCount1 == 3)
+                            if (pullCount1 >= 3)
                             {
                                 player1Won = true;
 
                                 pullStart1 = false;
 
                                 Debug.Log("Player 1 Won PULL-UPS!");
-
-
+                            }
+                            if (player1Won == true)
+                            {
+                                PlayerOne.Instance.TrainingResult(GameChoice.PullUp, 5);
+                                player1Won = false;
                             }
                         }
 
@@ -265,6 +271,10 @@ public class TrainingGameExtra: MonoBehaviour
                             {
                                 treadWinScore1 = 0f;
                             }
+                            if (treadWinScore1 >= 110f)
+                            {
+                                treadWinScore1 = 110f;
+                            }
                         }
 
                         if (Input.GetKeyDown(o_Action) && treadStart1 == true)
@@ -275,14 +285,17 @@ public class TrainingGameExtra: MonoBehaviour
                         if (treadStart1 == false && treadWinScore1 >= 100f)
                         {
                             player1Won = true;
-
                             Debug.Log("Player 1 Won TREADMILL!");
+                            treadWinScore1 = 0f;
                         }
-
+                        if (player1Won == true && trainEnded)
+                        {
+                            PlayerOne.Instance.TrainingResult(GameChoice.Treadmill, 5);
+                            player1Won = false;
+                        }
                         if (treadStart1 == false && treadWinScore1 < 100f)
                         {
                             player1Lost = true;
-
                             Debug.Log("Player 1 Lost TREADMILL!");
                         }
                         #endregion
@@ -307,16 +320,23 @@ public class TrainingGameExtra: MonoBehaviour
 
                         if (bagStart1 == false)
                         {
+                            if (countPunchOne >= 3 && trainingTimer <= 0)
+                            {
+                                PlayerOne.Instance.TrainingResult(GameChoice.PunchingBag, 5);
+                                countPunchOne = 0;
+                                bagStart1 = true;
+                                return;
+                            }
                             if (bagMove1 >= 0 && bagMove1 <= 20)
                             {
-                                Debug.Log("Player Wins PUNCHING BAG!");
+                                //Debug.Log("Player Wins PUNCHING BAG!");
                                 countPunchOne++;
                                 bagStart1 = true;
                             }
 
                             if (bagMove1 < 0 || bagMove1 > 20)
                             {
-                                Debug.Log("Player Loses PUNCHING BAG!");
+                                //Debug.Log("Player Loses PUNCHING BAG!");
                                 bagStart1 = true;
                             }
                         }
@@ -393,13 +413,18 @@ public class TrainingGameExtra: MonoBehaviour
                                 }
                             }
 
-                            if (pullCount2 == 3)
+                            if (pullCount2 >= 3)
                             {
                                 player2Won = true;
 
                                 pullStart2 = false;
 
                                 Debug.Log("Player 2 Won PULL-UPS!");
+                            }
+                            if (player2Won == true)
+                            {
+                                PlayerTwo.Instance.TrainingResult(GameChoice.PullUp, 5);
+                                player2Won = false;
                             }
                         }
 
@@ -424,13 +449,17 @@ public class TrainingGameExtra: MonoBehaviour
 
                         if (treadStart2 == true)
                         {
-                            trainingTimer -= 1f * Time.deltaTime;
+                            //trainingTimer -= Time.deltaTime;
 
                             treadWinScore2 -= runDown1 * Time.deltaTime;
 
                             if (treadWinScore2 <= 0f)
                             {
                                 treadWinScore2 = 0f;
+                            }
+                            if (treadWinScore2 >= 110f)
+                            {
+                                treadWinScore2 = 110f;
                             }
 
                             if (trainingTimer <= 0)
@@ -449,8 +478,14 @@ public class TrainingGameExtra: MonoBehaviour
                         if (treadStart2 == false && treadWinScore2 >= 100f)
                         {
                             player2Won = true;
-
+                            treadWinScore2 = 0f;
                             Debug.Log("Player 2 Won TREADMILL!");
+                        }
+
+                        if (player2Won == true && trainEnded)
+                        {
+                            PlayerTwo.Instance.TrainingResult(GameChoice.Treadmill, 5);
+                            player2Won = false;
                         }
 
                         if (treadStart2 == false && treadWinScore2 < 100f)
@@ -481,6 +516,13 @@ public class TrainingGameExtra: MonoBehaviour
 
                         if (bagStart2 == false)
                         {
+                            if (countPunchTwo >= 3 && trainingTimer <= 0)
+                            {
+                                PlayerTwo.Instance.TrainingResult(GameChoice.PunchingBag, 5);
+                                countPunchTwo = 0;
+                                bagStart2 = true;
+                                return;
+                            }
                             if (bagMove2 >= 0 && bagMove2 <= 20)
                             {
                                 countPunchTwo++;
