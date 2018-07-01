@@ -178,6 +178,8 @@ public class GameManager : MonoBehaviour
         trainTime = 15;
         if (isRoundStart)
         {
+            PlayerPositions playerPos = GetComponent<PlayerPositions>();
+            playerPos.ResetFightPosition();
             preRound = true;
             gameUI.alpha = 1;
             breakUI.alpha = 0;
