@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
 
     public float damage = 5;
     public float speed = 5;
-    public float range = 5;
 
     public bool isDead = false;
 
@@ -28,31 +27,33 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (health < maxHealth)
+        if (GameManager.instance.isRoundStart || GameManager.instance.isBreakStart)
         {
-            health += .5f * Time.deltaTime;
+            if (health < maxHealth)
+            {
+                health += .5f * Time.deltaTime;
+            }
+            if (health <= 0)
+            {
+                isDead = true;
+            }
+            if (health >= maxHealth)
+            {
+                health = maxHealth;
+            }
+            if (stamina < maxStamina)
+            {
+                stamina += .5f * Time.deltaTime;
+            }
+            if (stamina <= 0)
+            {
+                stamina = 0;
+            }
+            if (stamina >= maxStamina)
+            {
+                stamina = maxStamina;
+            }
         }
-        if (health <= 0)
-        {
-            isDead = true;
-        }
-        if (health >= maxHealth)
-        {
-            health = maxHealth;
-        }
-        if (stamina < maxStamina)
-        {
-            stamina += .5f * Time.deltaTime;
-        }
-        if (stamina <= 0)
-        {
-            stamina = 0;
-        }
-        if (stamina >= maxStamina)
-        {
-            stamina = maxStamina;
-        }
-
     }
     public void StaminaCost(float amount)
     {

@@ -53,9 +53,9 @@ public class GameManager : MonoBehaviour
 
     public TrainingMode[] trainingMode;
 
-    bool isRoundStart = true;
-    bool isBreakStart = false;
-    bool isTrainingStart = false;
+    public bool isRoundStart = true;
+    public bool isBreakStart = false;
+    public bool isTrainingStart = false;
 
     public bool preRound = true;
 
@@ -138,6 +138,18 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                if (trainingOneSelected == false)
+                {
+                    trainingOneSelected = true;
+                    CameraOne.transform.position = trainingMode[0].trainingMode[3].transform.position;
+                    gameChoiceOne = GameChoice.Rest;
+                }
+                if (trainingTwoSelected == false)
+                {
+                    trainingTwoSelected = true;
+                    CameraOne.transform.position = trainingMode[1].trainingMode[3].transform.position;
+                    gameChoiceTwo = GameChoice.Rest;
+                }
                 animTraining.SetBool("StartTraining", true);
                 StartTraining();
                 ChangeRounds();
@@ -174,7 +186,7 @@ public class GameManager : MonoBehaviour
     {
         preRoundTime = 3;
         gameTime = 60;
-        breakTime = 5;
+        breakTime = 10;
         trainTime = 15;
         if (isRoundStart)
         {

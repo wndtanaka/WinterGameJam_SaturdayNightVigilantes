@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameObject otherPlayer;
 
     public GameObject rightHand, leftHand, punchTarget, rHandOrigin, lHandOrigin;
-    public float punchSpeed;
+    //public float punchSpeed;
     public bool isHittingLeft;
 
     public bool playerIsPunching, r_hasPunchReset, l_hasPunchReset;
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        punchSpeed = 8f;
+        //punchSpeed = 8f;
 
         playerIsPunching = false;
         r_hasPunchReset = true;
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (playerDistance > maxDistanceFromPlayer)
                     {
-                        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                        transform.Translate(Vector3.forward * PlayerOne.Instance.speed * Time.deltaTime);
                         playerOne.SetBool("MovingForward", true);
                     }
                 }
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.S))
                 {
-                    transform.Translate(-Vector3.forward * (speed * 0.75f) * Time.deltaTime);
+                    transform.Translate(-Vector3.forward * (PlayerOne.Instance.speed * 0.75f) * Time.deltaTime);
                     playerOne.SetBool("MovingBack", true);
                 }
                 else
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.A))
                 {
-                    transform.Translate(-Vector3.right * (speed / 2) * Time.deltaTime);
+                    transform.Translate(-Vector3.right * (PlayerOne.Instance.speed / 2) * Time.deltaTime);
                     playerOne.SetBool("MovingLeft", true);
                 }
                 else
@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.D))
                 {
-                    transform.Translate(Vector3.right * (speed / 2) * Time.deltaTime);
+                    transform.Translate(Vector3.right * (PlayerOne.Instance.speed / 2) * Time.deltaTime);
                     playerOne.SetBool("MovingRight", true);
                 }
                 else
@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (playerDistance > maxDistanceFromPlayer)
                     {
-                        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                        transform.Translate(Vector3.forward * PlayerTwo.Instance.speed * Time.deltaTime);
                         playerTwo.SetBool("MovingForward", true);
                     }
 
@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.DownArrow))
                 {
-                    transform.Translate(-Vector3.forward * (speed * 0.75f) * Time.deltaTime);
+                    transform.Translate(-Vector3.forward * (PlayerTwo.Instance.speed * 0.75f) * Time.deltaTime);
                     playerTwo.SetBool("MovingBack", true);
                 }
                 else
@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.RightArrow))
                 {
-                    transform.Translate(Vector3.right * (speed / 2) * Time.deltaTime);
+                    transform.Translate(Vector3.right * (PlayerTwo.Instance.speed / 2) * Time.deltaTime);
                     playerTwo.SetBool("MovingRight", true);
                 }
                 else
@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.LeftArrow))
                 {
-                    transform.Translate(-Vector3.right * (speed / 2) * Time.deltaTime);
+                    transform.Translate(-Vector3.right * (PlayerTwo.Instance.speed / 2) * Time.deltaTime);
                     playerTwo.SetBool("MovingLeft", true);
                 }
                 else
@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (l_hasPunchReset)
                     {
-                        leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, lHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+                        leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, lHandOrigin.transform.position, PlayerOne.Instance.speed / 2 * Time.deltaTime);
 
                         if (Input.GetKeyDown(KeyCode.H) && player.stamina >= 15)
                         {
@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour
                     {
                         if (playerIsPunching)
                         {
-                            leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, punchTarget.transform.position, punchSpeed * Time.deltaTime);
+                            leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, punchTarget.transform.position, PlayerOne.Instance.speed * Time.deltaTime);
                             playerOne.SetBool("isHittingLeft", false);
                         }
 
@@ -231,7 +231,7 @@ public class PlayerController : MonoBehaviour
 
                         if (!playerIsPunching)
                         {
-                            leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, lHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+                            leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, lHandOrigin.transform.position, PlayerOne.Instance.speed / 2 * Time.deltaTime);
 
                         }
 
@@ -245,7 +245,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (r_hasPunchReset)
                     {
-                        rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+                        rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, PlayerOne.Instance.speed / 2 * Time.deltaTime);
 
                         if (Input.GetKeyDown(KeyCode.H) && player.stamina >= 15)
                         {
@@ -273,7 +273,7 @@ public class PlayerController : MonoBehaviour
                     {
                         if (playerIsPunching)
                         {
-                            rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, punchTarget.transform.position, punchSpeed * Time.deltaTime);
+                            rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, punchTarget.transform.position, PlayerOne.Instance.speed * Time.deltaTime);
                             playerOne.SetBool("isHittingRight", false);
                             Debug.Log("PlayerOne_isHittingRight is false");
 
@@ -287,7 +287,7 @@ public class PlayerController : MonoBehaviour
 
                         if (!playerIsPunching)
                         {
-                            rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+                            rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, PlayerOne.Instance.speed / 2 * Time.deltaTime);
 
                         }
 
@@ -308,7 +308,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (l_hasPunchReset)
                     {
-                        leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, lHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+                        leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, lHandOrigin.transform.position, PlayerTwo.Instance.speed / 2 * Time.deltaTime);
 
                         if (Input.GetKeyDown(KeyCode.Keypad3) && player.stamina >= 15)
                         {
@@ -329,7 +329,7 @@ public class PlayerController : MonoBehaviour
                     {
                         if (playerIsPunching)
                         {
-                            leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, punchTarget.transform.position, punchSpeed * Time.deltaTime);
+                            leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, punchTarget.transform.position, PlayerTwo.Instance.speed * Time.deltaTime);
                             playerTwo.SetBool("isHittingLeft", false);
                         }
 
@@ -340,7 +340,7 @@ public class PlayerController : MonoBehaviour
 
                         if (!playerIsPunching)
                         {
-                            leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, lHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+                            leftHand.transform.position = Vector3.MoveTowards(leftHand.transform.position, lHandOrigin.transform.position, PlayerTwo.Instance.speed / 2 * Time.deltaTime);
 
                         }
 
@@ -354,7 +354,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (r_hasPunchReset)
                     {
-                        rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+                        rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, PlayerTwo.Instance.speed / 2 * Time.deltaTime);
 
                         if (Input.GetKeyDown(KeyCode.Keypad3) && player.stamina >= 15)
                         {
@@ -382,7 +382,7 @@ public class PlayerController : MonoBehaviour
                     {
                         if (playerIsPunching)
                         {
-                            rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, punchTarget.transform.position, punchSpeed * Time.deltaTime);
+                            rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, punchTarget.transform.position, PlayerTwo.Instance.speed * Time.deltaTime);
                             playerTwo.SetBool("isHittingRight", false);
                             Debug.Log("PlayerOne_isHittingRight is false");
 
@@ -396,7 +396,7 @@ public class PlayerController : MonoBehaviour
 
                         if (!playerIsPunching)
                         {
-                            rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, punchSpeed / 2 * Time.deltaTime);
+                            rightHand.transform.position = Vector3.MoveTowards(rightHand.transform.position, rHandOrigin.transform.position, PlayerTwo.Instance.speed / 2 * Time.deltaTime);
 
                         }
 
