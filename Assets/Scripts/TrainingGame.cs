@@ -116,64 +116,7 @@ public class TrainingGame : MonoBehaviour {
 
     void Update()
     {
-        if (pullStart1 == true)
-        {
-            if (pullReset1 == false)
-            {
-                if (Input.GetKey(KeyCode.G) && pullRelease1 == false)
-                {
-                    pullBar1 += pull1 * Time.deltaTime;
-                }
-
-                else
-                {
-                    pullBar1 -= (pull1 * 3) * Time.deltaTime;
-                }
-
-                if (pullBar1 <= 0f)
-                {
-                    pullBar1 = 0f;
-                }
-
-                if (pullBar1 >= 100f)
-                {
-                    if (pullCounted1 == false)
-                    {
-                        pullCount1 += 1;
-
-                        pullCounted1 = true;
-                    }
-
-                    pullBar1 = 100f;
-                }
-
-                if (Input.GetKeyUp(KeyCode.G))
-                {
-                    pullRelease1 = true;
-
-                    //pullBar1 -= (pull1 * 6) * Time.deltaTime;
-
-                    if (pullCounted1 == true)
-                    {
-                        pullCounted1 = false;
-                    }
-
-                    pullReset1 = true;
-                }
-            }
-
-            if (pullReset1 == true)
-            {
-                pullBar1 -= (pull1 * 6) * Time.deltaTime;
-
-                if (pullBar1 <= 0f)
-                {
-                    pullRelease1 = false;
-
-                    pullReset1 = false;
-                }
-            }
-        }
+        
 
         if (_view.isTraining)
         {
@@ -186,6 +129,7 @@ public class TrainingGame : MonoBehaviour {
                     {
                         //anim.setBool("o_isPunching", true);
 
+                        #region Player 1 Heavy-Bag Mini-Game
                         if (bagStart1 == true)
                         {
                             if (bagBottom1 == true && bagTop1 == false)
@@ -232,11 +176,13 @@ public class TrainingGame : MonoBehaviour {
                                 Debug.Log("Player Loses PUNCHING BAG!");
                             }
                         }
+                        #endregion
                     }
                     if (o_gamechoice == O_gamechoice.treadmill)
                     {
                         //anim.setBool("o_isRunning", true);
 
+                        #region Player 1 Treadmill Mini-Game
                         if (treadStart == true)
                         {
                             trainingTimer -= 1f * Time.deltaTime;
@@ -274,10 +220,70 @@ public class TrainingGame : MonoBehaviour {
 
                             Debug.Log("Player 1 Lost!");
                         }
+                        #endregion
                     }
                     if (o_gamechoice == O_gamechoice.pullup)
                     {
                         //anim.setBool("o_isPullingUp", true);
+
+                        #region Player 1 Pull-Up Mini-Game
+                        if (pullStart1 == true)
+                        {
+                            if (pullReset1 == false)
+                            {
+                                if (Input.GetKey(o_Action) && pullRelease1 == false)
+                                {
+                                    pullBar1 += pull1 * Time.deltaTime;
+                                }
+
+                                else
+                                {
+                                    pullBar1 -= (pull1 * 3) * Time.deltaTime;
+                                }
+
+                                if (pullBar1 <= 0f)
+                                {
+                                    pullBar1 = 0f;
+                                }
+
+                                if (pullBar1 >= 100f)
+                                {
+                                    if (pullCounted1 == false)
+                                    {
+                                        pullCount1 += 1;
+
+                                        pullCounted1 = true;
+                                    }
+
+                                    pullBar1 = 100f;
+                                }
+
+                                if (Input.GetKeyUp(o_Action))
+                                {
+                                    pullRelease1 = true;
+
+                                    if (pullCounted1 == true)
+                                    {
+                                        pullCounted1 = false;
+                                    }
+
+                                    pullReset1 = true;
+                                }
+                            }
+
+                            if (pullReset1 == true)
+                            {
+                                pullBar1 -= (pull1 * 6) * Time.deltaTime;
+
+                                if (pullBar1 <= 0f)
+                                {
+                                    pullRelease1 = false;
+
+                                    pullReset1 = false;
+                                }
+                            }
+                        }
+                        #endregion
                     }
 
                 }
@@ -289,6 +295,7 @@ public class TrainingGame : MonoBehaviour {
                         t_Punch = !t_Punch;
                         //anim.setBool("t_Punch", t_Punch);
 
+                        #region Player 2 Heavy-Bag Mini-Game
                         if (bagStart2 == true)
                         {
                             if (bagBottom2 == true && bagTop2 == false)
@@ -335,12 +342,14 @@ public class TrainingGame : MonoBehaviour {
                                 Debug.Log("Player Loses PUNCHING BAG!");
                             }
                         }
+                        #endregion
                     }
                     if (t_gamechoice == T_gamechoice.treadmill)
                     {
                         t_RunSpeed += 0.5f;
                         //anim.setFloat("t_RunSpeed", t_RunSpeed);
 
+                        #region Player 2 Treadmill Mini-Game
                         if (treadStart == true)
                         {
                             trainingTimer -= 1f * Time.deltaTime;
@@ -378,10 +387,70 @@ public class TrainingGame : MonoBehaviour {
 
                             Debug.Log("Player 2 Lost!");
                         }
+                        #endregion
                     }
                     if (t_gamechoice == T_gamechoice.pullup)
                     {
                         //anim.setBool("t_isPullingUp", true);
+
+                        #region Player 2 Pull-Up Mini-Game
+                        if (pullStart2 == true)
+                        {
+                            if (pullReset2 == false)
+                            {
+                                if (Input.GetKey(t_Action) && pullRelease2 == false)
+                                {
+                                    pullBar2 += pull2 * Time.deltaTime;
+                                }
+
+                                else
+                                {
+                                    pullBar2 -= (pull2 * 3) * Time.deltaTime;
+                                }
+
+                                if (pullBar2 <= 0f)
+                                {
+                                    pullBar2 = 0f;
+                                }
+
+                                if (pullBar2 >= 100f)
+                                {
+                                    if (pullCounted2 == false)
+                                    {
+                                        pullCount2 += 1;
+
+                                        pullCounted2 = true;
+                                    }
+
+                                    pullBar2 = 100f;
+                                }
+
+                                if (Input.GetKeyUp(t_Action))
+                                {
+                                    pullRelease2 = true;
+
+                                    if (pullCounted2 == true)
+                                    {
+                                        pullCounted2 = false;
+                                    }
+
+                                    pullReset2 = true;
+                                }
+                            }
+
+                            if (pullReset2 == true)
+                            {
+                                pullBar2 -= (pull2 * 6) * Time.deltaTime;
+
+                                if (pullBar2 <= 0f)
+                                {
+                                    pullRelease2 = false;
+
+                                    pullReset2 = false;
+                                }
+                            }
+                        }
+                        #endregion
                     }
                 }
             }
