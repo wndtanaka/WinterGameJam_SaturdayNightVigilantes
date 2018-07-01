@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     Player player;
     Animator playerOne;
     Animator playerTwo;
+    GameManager gameManager;
 
     float timer;
 
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
         l_hasPunchReset = true;
 
         player = GetComponent<Player>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         playerOne = GameObject.FindWithTag("Player One").GetComponent<Animator>();
         playerTwo = GameObject.FindWithTag("Player Two").GetComponent<Animator>();
@@ -62,9 +64,11 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         playerDistance = Vector3.Distance(otherPlayer.transform.position, transform.position);
-
-        PlayerMovement();
-        PlayerPunch();
+        if (!gameManager.preRound)
+        {
+            PlayerMovement();
+            PlayerPunch();
+        }
 
     }
 

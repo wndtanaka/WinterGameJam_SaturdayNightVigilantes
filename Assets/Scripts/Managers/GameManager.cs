@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     bool isBreakStart = false;
     bool isTrainingStart = false;
 
-    bool preRound = true;
+    public bool preRound = true;
 
     public bool trainingOneSelected = false;
     public bool trainingTwoSelected = false;
@@ -98,11 +98,13 @@ public class GameManager : MonoBehaviour
                 preRoundTime -= Time.deltaTime;
                 camView.isTraining = false;
                 camView.inFight = false;
+                preRound = true;
             }
             else
             {
                 if (gameTime > 0)
                 {
+                    preRound = false;
                     gameTime -= Time.deltaTime;
                     camView.inFight = true;
                 }
