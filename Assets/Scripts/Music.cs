@@ -9,6 +9,7 @@ public class Music : MonoBehaviour
 
     AudioSource audi;
     GameManager manager;
+    public GameObject Credits;
 
     public bool isPlayingRoundSong = false;
     public bool isPlayingTrainingSong = false;
@@ -17,11 +18,22 @@ public class Music : MonoBehaviour
     {
         audi = GetComponent<AudioSource>();
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Credits.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKey(KeyCode.P))
+        {
+            Credits.SetActive(true);
+        }
+        else
+        {
+            Credits.SetActive(false);
+        }
+
         if (manager.isRoundStart && !isPlayingRoundSong)
         {
             audi.clip = songs[0];
