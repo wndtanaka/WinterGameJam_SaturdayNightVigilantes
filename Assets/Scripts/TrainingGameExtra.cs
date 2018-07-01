@@ -44,7 +44,7 @@ public class TrainingGameExtra : MonoBehaviour
 
     [Header("Animators")]
     public Animator player1PullupsAnim;
-    public Animator player1TreadmillAnim, player1Punchbag, player2PullupsAnim;
+    public Animator player1TreadmillAnim, player1PunchbagAnim, player2PullupsAnim, player2TreadmillAnim, player2PunchbagAnim;
 
     private bool choiceSelected = false;
 
@@ -290,6 +290,18 @@ public class TrainingGameExtra : MonoBehaviour
                         if (Input.GetKeyDown(o_Action) && treadStart1 == true)
                         {
                             treadWinScore1 = treadWinScore1 + treadRunUp1;
+
+                            player1TreadmillAnim.SetBool("RunningTraining", true);
+                        }
+
+                        if (treadWinScore1 > 5f)
+                        {
+                            player1TreadmillAnim.SetFloat("RunSpeed", .2f);
+                        }
+                        else
+                        {
+                            player1TreadmillAnim.SetFloat("RunSpeed", .05f);
+                            player1TreadmillAnim.SetBool("RunningTraining", false);
                         }
 
                         if (treadStart1 == false && treadWinScore1 >= 100f)
@@ -487,6 +499,18 @@ public class TrainingGameExtra : MonoBehaviour
                         if (Input.GetKeyDown(t_Action) && treadStart2 == true)
                         {
                             treadWinScore2 = treadWinScore2 + treadRunUp1;
+
+                            player2TreadmillAnim.SetBool("RunningTraining", true);
+                        }
+
+                        if (treadWinScore2 > 5f)
+                        {
+                            player2TreadmillAnim.SetFloat("RunSpeed", .2f);
+                        }
+                        else
+                        {
+                            player2TreadmillAnim.SetFloat("RunSpeed", .05f);
+                            player2TreadmillAnim.SetBool("RunningTraining", false);
                         }
 
                         if (treadStart2 == false && treadWinScore2 >= 100f)
