@@ -55,8 +55,8 @@ public class GameManager : MonoBehaviour
     bool isBreakStart = false;
     bool isTrainingStart = false;
 
-    bool trainingOneSelected = false;
-    bool trainingTwoSelected = false;
+    public bool trainingOneSelected = false;
+    public bool trainingTwoSelected = false;
 
     int indexSelection;
 
@@ -237,11 +237,9 @@ public class GameManager : MonoBehaviour
         {
             case GameChoice.PullUp:
                 PlayerOne.Instance.TrainingResult(GameChoice.PullUp, 10);
-                Debug.Log("Pull");
                 break;
             case GameChoice.Treadmill:
                 PlayerOne.Instance.TrainingResult(GameChoice.Treadmill, 10);
-                Debug.Log("One");
                 break;
             case GameChoice.PunchingBag:
                 PlayerOne.Instance.TrainingResult(GameChoice.PunchingBag, 10);
@@ -257,7 +255,6 @@ public class GameManager : MonoBehaviour
                 break;
             case GameChoice.Treadmill:
                 PlayerTwo.Instance.TrainingResult(GameChoice.Treadmill, 10);
-                Debug.Log("Two");
                 break;
             case GameChoice.PunchingBag:
                 PlayerTwo.Instance.TrainingResult(GameChoice.PunchingBag, 10);
