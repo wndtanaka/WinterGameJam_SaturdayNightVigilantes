@@ -21,24 +21,25 @@ public class TrainingGame : MonoBehaviour
     public O_gamechoice o_gamechoice;
     public T_gamechoice t_gamechoice;
 
-    [Header("Treadmill")]
+    [Header("Treadmill - Press 2")]
     public float treadWinScore1;
     public float treadRunUp1, treadRunUp2, treadWinScore2;
     public float runDown1, runDown2;
     public bool player1Lost, player1Won, treadStart1, treadStart2, player2Lost, player2Won;
     public float trainingTimer;
 
-    [Header("PunchingBag")]
+    [Header("PunchingBag - Press 3")]
     public float bagMove1;
     public float bagMove2, bagUp1;
     public float bagNeedle1, bagNeedle2;
     public bool bagBottom1, bagTop1, bagBottom2, bagTop2, bagStart1, bagStart2, bagHit;
 
-    [Header("Pull-Ups")]
+    [Header("Pull-Ups - Press 1")]
     public float pullBar1;
     public float pullBar2, pull1, pull2;
     public bool pullStart1, pullStart2, pullReset1, pullReset2, pullCounted1, pullCounted2, pullRelease1, pullRelease2;
     public int pullCount1, pullCount2;
+    public bool playerOneChosen, playerTwoChosen;
 
     public enum O_gamechoice // Player One's game choice enum
     {
@@ -117,7 +118,7 @@ public class TrainingGame : MonoBehaviour
         pullRelease2 = false;
         #endregion
     }
-    
+
     void TrainingTimerFunction()
     {
         trainingTimer -= Time.deltaTime;
@@ -146,7 +147,11 @@ public class TrainingGame : MonoBehaviour
                 {
                     case GameChoice.PullUp:
                         #region Player 1 Pull-Up Mini-Game
-                        pullStart1 = true;
+                        if (playerOneChosen == false)
+                        {
+                            pullStart1 = true;
+                            playerOneChosen = true;
+                        }
 
                         if (pullStart1 == true)
                         {
@@ -206,9 +211,13 @@ public class TrainingGame : MonoBehaviour
 
                             if (pullCount1 == 3)
                             {
+                                player1Won = true;
+
                                 pullStart1 = false;
 
                                 Debug.Log("Player 1 Won PULL-UPS!");
+
+
                             }
                         }
 
@@ -217,13 +226,19 @@ public class TrainingGame : MonoBehaviour
                             if (pullCount1 < 3)
                             {
                                 Debug.Log("Player 1 Lost PULL-UPS!");
+
+                                player1Lost = true;
                             }
                         }
                         #endregion
                         break;
                     case GameChoice.Treadmill:
                         #region Player 1 Treadmill Mini-Game
-                        treadStart1 = true;
+                        if (playerOneChosen == false)
+                        {
+                            treadStart1 = true;
+                            playerOneChosen = true;
+                        }
 
                         if (treadStart1 == true)
                         {
@@ -257,7 +272,11 @@ public class TrainingGame : MonoBehaviour
                         break;
                     case GameChoice.PunchingBag:
                         #region Player 1 Heavy-Bag Mini-Game
-                        bagStart1 = true;
+                        if (playerOneChosen == false)
+                        {
+                            bagStart1 = true;
+                            playerOneChosen = true;
+                        }
 
                         if (bagStart1 == true)
                         {
@@ -298,11 +317,15 @@ public class TrainingGame : MonoBehaviour
                             if (bagMove1 >= 45 && bagMove1 <= 55)
                             {
                                 Debug.Log("Player 1 Wins PUNCHING BAG!");
+
+                                player1Won = true;
                             }
 
                             if (bagMove1 < 45 || bagMove1 > 55)
                             {
                                 Debug.Log("Player 1 Loses PUNCHING BAG!");
+
+                                player1Lost = true;
                             }
                         }
                         #endregion
@@ -316,7 +339,11 @@ public class TrainingGame : MonoBehaviour
                 {
                     case GameChoice.PullUp:
                         #region Player 2 Pull-Up Mini-Game
-                        pullStart2 = true;
+                        if (playerTwoChosen == false)
+                        {
+                            pullStart2 = true;
+                            playerTwoChosen = true;
+                        }
 
                         if (pullStart2 == true)
                         {
@@ -372,28 +399,36 @@ public class TrainingGame : MonoBehaviour
 
                                     pullReset2 = false;
                                 }
-                            
-                                if (pullCount2 == 3)
-                                {
-                                    pullStart2 = false;
+                            }
 
-                                    Debug.Log("Player 1 Won PULL-UPS!");
-                                }
+                            if (pullCount2 == 3)
+                            {
+                                player2Won = true;
+
+                                pullStart2 = false;
+
+                                Debug.Log("Player 2 Won PULL-UPS!");
+                            }
                         }
 
                         if (pullStart2 == false)
                         {
                             if (pullCount2 < 3)
                             {
-                                Debug.Log("Player 1 Lost PULL-UPS!");
+                                Debug.Log("Player 2 Lost PULL-UPS!");
+
+                                player2Lost = true;
                             }
                         }
-                }
                         #endregion
                         break;
                     case GameChoice.Treadmill:
                         #region Player 2 Treadmill Mini-Game
-                        treadStart2 = true;
+                        if (playerTwoChosen == false)
+                        {
+                            treadStart2 = true;
+                            playerTwoChosen = true;
+                        }
 
                         if (treadStart2 == true)
                         {
@@ -436,7 +471,11 @@ public class TrainingGame : MonoBehaviour
                         break;
                     case GameChoice.PunchingBag:
                         #region Player 2 Heavy-Bag Mini-Game
-                        bagStart2 = true;
+                        if (playerTwoChosen == false)
+                        {
+                            bagStart2 = true;
+                            playerTwoChosen = true;
+                        }
 
                         if (bagStart2 == true)
                         {
@@ -477,11 +516,15 @@ public class TrainingGame : MonoBehaviour
                             if (bagMove2 >= 45 && bagMove2 <= 55)
                             {
                                 Debug.Log("Player 2 Wins PUNCHING BAG!");
+
+                                player2Won = true;
                             }
 
                             if (bagMove2 < 45 || bagMove2 > 55)
                             {
                                 Debug.Log("Player 2 Loses PUNCHING BAG!");
+
+                                player2Lost = true;
                             }
                         }
                         #endregion
