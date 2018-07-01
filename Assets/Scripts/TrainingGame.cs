@@ -22,10 +22,10 @@ public class TrainingGame : MonoBehaviour
     public T_gamechoice t_gamechoice;
 
     [Header("Treadmill")]
-    public float treadWinScore1, treadWinScore2;
-    public float treadRunUp1, treadRunUp2;
+    public float treadWinScore1;
+    public float treadRunUp1, treadRunUp2, treadWinScore2;
     public float runDown1, runDown2;
-    public bool player1Lost, player1Won, treadStart, player2Lost, player2Won;
+    public bool player1Lost, player1Won, treadStart1, treadStart2, player2Lost, player2Won;
     public float trainingTimer;
 
     [Header("PunchingBag")]
@@ -73,7 +73,8 @@ public class TrainingGame : MonoBehaviour
         treadRunUp2 = 10f;
         runDown2 = 40f;
 
-        treadStart = true;
+        //treadStart1 = true;
+        //treadStart2 = true;
 
         trainingTimer = 10f;
         #endregion
@@ -83,7 +84,7 @@ public class TrainingGame : MonoBehaviour
         bagNeedle1 = 50f;
         bagUp1 = 10f;
 
-        bagStart1 = true;
+        //bagStart1 = true;
         bagBottom1 = true;
         bagTop1 = false;
 
@@ -91,7 +92,7 @@ public class TrainingGame : MonoBehaviour
         bagNeedle2 = 50f;
         bagUp1 = 10f;
 
-        bagStart2 = true;
+        //bagStart2 = true;
         bagBottom2 = true;
         bagTop2 = false;
         #endregion
@@ -101,9 +102,10 @@ public class TrainingGame : MonoBehaviour
         pullBar2 = 0f;
 
         pull1 = 40f;
+        pull2 = 40f;
 
-        pullStart1 = true;
-        pullStart2 = true;
+        //pullStart1 = true;
+        //pullStart2 = true;
 
         pullCount1 = 0;
         pullCount2 = 0;
@@ -115,6 +117,25 @@ public class TrainingGame : MonoBehaviour
         pullRelease2 = false;
         #endregion
     }
+    
+    void TrainingTimerFunction()
+    {
+        trainingTimer -= Time.deltaTime;
+
+        if (trainingTimer <= 0)
+        {
+            trainingTimer = 0f;
+
+            treadStart1 = false;
+            treadStart2 = false;
+
+            bagStart1 = false;
+            bagStart2 = false;
+
+            pullStart1 = false;
+            pullStart2 = false;
+        }
+    }
 
     void TrainingSelection(PlayerType player, GameChoice gameChoice)
     {
@@ -125,6 +146,8 @@ public class TrainingGame : MonoBehaviour
                 {
                     case GameChoice.PullUp:
                         #region Player 1 Pull-Up Mini-Game
+                        pullStart1 = true;
+
                         if (pullStart1 == true)
                         {
                             if (pullReset1 == false)
@@ -180,52 +203,62 @@ public class TrainingGame : MonoBehaviour
                                     pullReset1 = false;
                                 }
                             }
+
+                            if (pullCount1 == 3)
+                            {
+                                pullStart1 = false;
+
+                                Debug.Log("Player 1 Won PULL-UPS!");
+                            }
+                        }
+
+                        if (pullStart1 == false)
+                        {
+                            if (pullCount1 < 3)
+                            {
+                                Debug.Log("Player 1 Lost PULL-UPS!");
+                            }
                         }
                         #endregion
                         break;
                     case GameChoice.Treadmill:
                         #region Player 1 Treadmill Mini-Game
-                        if (treadStart == true)
-                        {
-                            trainingTimer -= 1f * Time.deltaTime;
+                        treadStart1 = true;
 
+                        if (treadStart1 == true)
+                        {
                             treadWinScore1 -= runDown1 * Time.deltaTime;
 
                             if (treadWinScore1 <= 0f)
                             {
                                 treadWinScore1 = 0f;
                             }
-
-                            if (trainingTimer <= 0)
-                            {
-                                trainingTimer = 0f;
-
-                                treadStart = false;
-                            }
                         }
 
-                        if (Input.GetKeyDown(o_Action) && treadStart == true)
+                        if (Input.GetKeyDown(o_Action) && treadStart1 == true)
                         {
                             treadWinScore1 = treadWinScore1 + treadRunUp1;
                         }
 
-                        if (treadStart == false && treadWinScore1 >= 100f)
+                        if (treadStart1 == false && treadWinScore1 >= 100f)
                         {
                             player1Won = true;
 
-                            Debug.Log("Player 1 Won!");
+                            Debug.Log("Player 1 Won TREADMILL!");
                         }
 
-                        if (treadStart == false && treadWinScore1 < 100f)
+                        if (treadStart1 == false && treadWinScore1 < 100f)
                         {
                             player1Lost = true;
 
-                            Debug.Log("Player 1 Lost!");
+                            Debug.Log("Player 1 Lost TREADMILL!");
                         }
                         #endregion
                         break;
                     case GameChoice.PunchingBag:
                         #region Player 1 Heavy-Bag Mini-Game
+                        bagStart1 = true;
+
                         if (bagStart1 == true)
                         {
                             if (bagBottom1 == true && bagTop1 == false)
@@ -264,12 +297,12 @@ public class TrainingGame : MonoBehaviour
                         {
                             if (bagMove1 >= 45 && bagMove1 <= 55)
                             {
-                                Debug.Log("Player Wins PUNCHING BAG!");
+                                Debug.Log("Player 1 Wins PUNCHING BAG!");
                             }
 
                             if (bagMove1 < 45 || bagMove1 > 55)
                             {
-                                Debug.Log("Player Loses PUNCHING BAG!");
+                                Debug.Log("Player 1 Loses PUNCHING BAG!");
                             }
                         }
                         #endregion
@@ -282,68 +315,87 @@ public class TrainingGame : MonoBehaviour
                 switch (gameChoice)
                 {
                     case GameChoice.PullUp:
-                        #region Player 1 Pull-Up Mini-Game
-                        if (pullStart1 == true)
+                        #region Player 2 Pull-Up Mini-Game
+                        pullStart2 = true;
+
+                        if (pullStart2 == true)
                         {
-                            if (pullReset1 == false)
+                            if (pullReset2 == false)
                             {
-                                if (Input.GetKey(t_Action) && pullRelease1 == false)
+                                if (Input.GetKey(t_Action) && pullRelease2 == false)
                                 {
-                                    pullBar1 += pull1 * Time.deltaTime;
+                                    pullBar2 += pull2 * Time.deltaTime;
                                 }
 
                                 else
                                 {
-                                    pullBar1 -= (pull1 * 3) * Time.deltaTime;
+                                    pullBar2 -= (pull2 * 3) * Time.deltaTime;
                                 }
 
-                                if (pullBar1 <= 0f)
+                                if (pullBar2 <= 0f)
                                 {
-                                    pullBar1 = 0f;
+                                    pullBar2 = 0f;
                                 }
 
-                                if (pullBar1 >= 100f)
+                                if (pullBar2 >= 100f)
                                 {
-                                    if (pullCounted1 == false)
+                                    if (pullCounted2 == false)
                                     {
-                                        pullCount1 += 1;
+                                        pullCount2 += 1;
 
-                                        pullCounted1 = true;
+                                        pullCounted2 = true;
                                     }
 
-                                    pullBar1 = 100f;
+                                    pullBar2 = 100f;
                                 }
 
                                 if (Input.GetKeyUp(t_Action))
                                 {
-                                    pullRelease1 = true;
+                                    pullRelease2 = true;
 
-                                    if (pullCounted1 == true)
+                                    if (pullCounted2 == true)
                                     {
-                                        pullCounted1 = false;
+                                        pullCounted2 = false;
                                     }
 
-                                    pullReset1 = true;
+                                    pullReset2 = true;
                                 }
                             }
 
-                            if (pullReset1 == true)
+                            if (pullReset2 == true)
                             {
-                                pullBar1 -= (pull1 * 6) * Time.deltaTime;
+                                pullBar2 -= (pull2 * 6) * Time.deltaTime;
 
-                                if (pullBar1 <= 0f)
+                                if (pullBar2 <= 0f)
                                 {
-                                    pullRelease1 = false;
+                                    pullRelease2 = false;
 
-                                    pullReset1 = false;
+                                    pullReset2 = false;
                                 }
+                            
+                                if (pullCount2 == 3)
+                                {
+                                    pullStart2 = false;
+
+                                    Debug.Log("Player 1 Won PULL-UPS!");
+                                }
+                        }
+
+                        if (pullStart2 == false)
+                        {
+                            if (pullCount2 < 3)
+                            {
+                                Debug.Log("Player 1 Lost PULL-UPS!");
                             }
                         }
+                }
                         #endregion
                         break;
                     case GameChoice.Treadmill:
-                        #region Player 1 Treadmill Mini-Game
-                        if (treadStart == true)
+                        #region Player 2 Treadmill Mini-Game
+                        treadStart2 = true;
+
+                        if (treadStart2 == true)
                         {
                             trainingTimer -= 1f * Time.deltaTime;
 
@@ -358,32 +410,34 @@ public class TrainingGame : MonoBehaviour
                             {
                                 trainingTimer = 0f;
 
-                                treadStart = false;
+                                treadStart2 = false;
                             }
                         }
 
-                        if (Input.GetKeyDown(t_Action) && treadStart == true)
+                        if (Input.GetKeyDown(t_Action) && treadStart2 == true)
                         {
                             treadWinScore2 = treadWinScore2 + treadRunUp1;
                         }
 
-                        if (treadStart == false && treadWinScore2 >= 100f)
+                        if (treadStart2 == false && treadWinScore2 >= 100f)
                         {
                             player2Won = true;
 
-                            Debug.Log("Player 1 Won!");
+                            Debug.Log("Player 2 Won TREADMILL!");
                         }
 
-                        if (treadStart == false && treadWinScore2 < 100f)
+                        if (treadStart2 == false && treadWinScore2 < 100f)
                         {
                             player2Lost = true;
 
-                            Debug.Log("Player 1 Lost!");
+                            Debug.Log("Player 2 Lost TREADMILL!");
                         }
                         #endregion
                         break;
                     case GameChoice.PunchingBag:
                         #region Player 2 Heavy-Bag Mini-Game
+                        bagStart2 = true;
+
                         if (bagStart2 == true)
                         {
                             if (bagBottom2 == true && bagTop2 == false)
@@ -422,12 +476,12 @@ public class TrainingGame : MonoBehaviour
                         {
                             if (bagMove2 >= 45 && bagMove2 <= 55)
                             {
-                                Debug.Log("Player Wins PUNCHING BAG!");
+                                Debug.Log("Player 2 Wins PUNCHING BAG!");
                             }
 
                             if (bagMove2 < 45 || bagMove2 > 55)
                             {
-                                Debug.Log("Player Loses PUNCHING BAG!");
+                                Debug.Log("Player 2 Loses PUNCHING BAG!");
                             }
                         }
                         #endregion
@@ -441,6 +495,7 @@ public class TrainingGame : MonoBehaviour
 
     void Update()
     {
+        #region Commented-Out Old Code
         //if (_view.isTraining)
         //{
         //    if (choiceSelected)
@@ -813,8 +868,12 @@ public class TrainingGame : MonoBehaviour
         //        }
         //    }
         //}
+        #endregion
+
         if (_view.isTraining && GameManager.instance.trainingOneSelected == true && GameManager.instance.trainingTwoSelected == true)
         {
+            TrainingTimerFunction();
+
             if (GameManager.instance.trainingOneSelected == true)
             {
                 TrainingSelection(PlayerOne.Instance.playerType, GameManager.instance.gameChoiceOne);
