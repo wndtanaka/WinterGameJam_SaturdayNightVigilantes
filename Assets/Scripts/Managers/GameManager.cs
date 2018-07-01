@@ -138,6 +138,18 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                if (trainingOneSelected == false)
+                {
+                    trainingOneSelected = true;
+                    CameraOne.transform.position = trainingMode[0].trainingMode[3].transform.position;
+                    gameChoiceOne = GameChoice.Rest;
+                }
+                if (trainingTwoSelected == false)
+                {
+                    trainingTwoSelected = true;
+                    CameraOne.transform.position = trainingMode[1].trainingMode[3].transform.position;
+                    gameChoiceTwo = GameChoice.Rest;
+                }
                 animTraining.SetBool("StartTraining", true);
                 StartTraining();
                 ChangeRounds();
@@ -173,13 +185,15 @@ public class GameManager : MonoBehaviour
     public void ChangeRounds()
     {
         preRoundTime = 3;
-        gameTime = 45;
-        breakTime = 5;
+        gameTime = 60;
+        breakTime = 10;
         trainTime = 15;
         if (isRoundStart)
         {
             PlayerPositions playerPos = GetComponent<PlayerPositions>();
+
             playerPos.ResetFightPosition();
+
             preRound = true;
             gameUI.alpha = 1;
             breakUI.alpha = 0;

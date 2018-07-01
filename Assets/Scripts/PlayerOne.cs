@@ -35,7 +35,8 @@ public class PlayerOne : Player
         switch (gameChoice)
         {
             case GameChoice.PullUp:
-                range += amount;
+                maxHealth += amount;
+                maxStamina += amount;
                 break;
             case GameChoice.Treadmill:
                 speed += amount;
