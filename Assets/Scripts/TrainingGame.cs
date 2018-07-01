@@ -42,18 +42,26 @@ public class TrainingGame : MonoBehaviour
     public int pullCount1, pullCount2;
     public bool playerOneChosen, playerTwoChosen;
 
+    private bool choiceSelected = false;
+
+    [SerializeField]
+    private ChangeView _view;
+
+    [Header("Training Variables")]
     public Image treadmillbarOne;
     public Image treadmillbarTwo;
-
     public Image punchingBagOne;
     public Image punchingBagTwo;
     public bool rightOne = true;
     public bool rightTwo = true;
     public int countPunchOne;
     public int countPunchTwo;
-
     public Image pullUpOne;
     public Image pullUpTwo;
+
+    [Header("GameObject Variables")]
+    public GameObject[] trainingModePlayerOne;
+    public GameObject[] trainingModePlayerTwo;
 
     //public enum O_gamechoice // Player One's game choice enum
     //{
@@ -67,11 +75,6 @@ public class TrainingGame : MonoBehaviour
     //    treadmill = 1,
     //    punchingBag = 2
     //}
-
-    private bool choiceSelected = false;
-
-    [SerializeField]
-    private ChangeView _view;
 
     void Start()
     {
@@ -286,11 +289,11 @@ public class TrainingGame : MonoBehaviour
                         break;
                     case GameChoice.PunchingBag:
                         #region Player 1 Heavy-Bag Mini-Game
-                        //if (playerOneChosen == false)
-                        //{
-                        //    bagStart1 = true;
-                        //    playerOneChosen = true;
-                        //}
+                        if (playerOneChosen == false)
+                        {
+                            bagStart1 = true;
+                            playerOneChosen = true;
+                        }
 
                         if (bagStart1 == true)
                         {
@@ -460,11 +463,11 @@ public class TrainingGame : MonoBehaviour
                         break;
                     case GameChoice.PunchingBag:
                         #region Player 2 Heavy-Bag Mini-Game
-                        //if (playerTwoChosen == false)
-                        //{
-                        //    bagStart2 = true;
-                        //    playerTwoChosen = true;
-                        //}
+                        if (playerTwoChosen == false)
+                        {
+                            bagStart2 = true;
+                            playerTwoChosen = true;
+                        }
 
                         if (bagStart2 == true)
                         {
@@ -879,6 +882,7 @@ public class TrainingGame : MonoBehaviour
 
         if (_view.isTraining && GameManager.instance.trainingOneSelected == true && GameManager.instance.trainingTwoSelected == true)
         {
+            TrainingTimerFunction();
             if (GameManager.instance.trainingOneSelected == true)
             {
                 TrainingSelection(PlayerOne.Instance.playerType, GameManager.instance.gameChoiceOne);
@@ -902,6 +906,48 @@ public class TrainingGame : MonoBehaviour
             if (GameManager.instance.gameChoiceTwo == GameChoice.PullUp)
             {
                 pullUpTwo.fillAmount = Mathf.Lerp(pullUpTwo.fillAmount, pullBar2 / 100, 5 * Time.deltaTime);
+            }
+            foreach (GameObject mode in trainingModePlayerOne)
+            {
+                mode.SetActive(false);
+                switch (GameManager.instance.gameChoiceOne)
+                {
+                    case GameChoice.PullUp:
+                        trainingModePlayerOne[0].SetActive(true);
+                        break;
+                    case GameChoice.Treadmill:
+                        trainingModePlayerOne[1].SetActive(true);
+                        break;
+                    case GameChoice.PunchingBag:
+                        trainingModePlayerOne[2].SetActive(true);
+                        break;
+                    case GameChoice.Rest:
+                        trainingModePlayerOne[3].SetActive(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            foreach (GameObject mode in trainingModePlayerTwo)
+            {
+                mode.SetActive(false);
+                switch (GameManager.instance.gameChoiceTwo)
+                {
+                    case GameChoice.PullUp:
+                        trainingModePlayerTwo[0].SetActive(true);
+                        break;
+                    case GameChoice.Treadmill:
+                        trainingModePlayerTwo[1].SetActive(true);
+                        break;
+                    case GameChoice.PunchingBag:
+                        trainingModePlayerTwo[2].SetActive(true);
+                        break;
+                    case GameChoice.Rest:
+                        trainingModePlayerTwo[3].SetActive(true);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         //GameModeToggler();
