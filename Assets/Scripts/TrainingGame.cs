@@ -42,6 +42,10 @@ public class TrainingGame : MonoBehaviour
     public int pullCount1, pullCount2;
     public bool playerOneChosen, playerTwoChosen;
 
+    [Header("Animators")]
+    public Animator player1PullupAnim;
+    public Animator player1TreadmillAnim, player1PunchbagAnim, player2PullupAnim, player2TreadmillAnim, player2PunchbagAnim;
+
     private bool choiceSelected = false;
 
     private bool trainEnded = false;
@@ -170,6 +174,8 @@ public class TrainingGame : MonoBehaviour
                         if (playerOneChosen == false)
                         {
                             pullStart1 = true;
+                            player1PullupAnim.SetBool("PullupTraining", true);
+
                             playerOneChosen = true;
                         }
 
@@ -180,6 +186,9 @@ public class TrainingGame : MonoBehaviour
                                 if (Input.GetKey(o_Action) && pullRelease1 == false)
                                 {
                                     pullBar1 += pull1 * Time.deltaTime;
+
+                                    player1PullupAnim.SetBool("isGoingDown", false);
+                                    player1PullupAnim.SetBool("isPullingUp", true);
                                 }
 
                                 else
@@ -207,6 +216,9 @@ public class TrainingGame : MonoBehaviour
                                 if (Input.GetKeyUp(o_Action))
                                 {
                                     pullRelease1 = true;
+
+                                    player1PullupAnim.SetBool("isPullingUp", false);
+                                    player1PullupAnim.SetBool("isGoingDown", true);
 
                                     if (pullCounted1 == true)
                                     {
@@ -307,6 +319,7 @@ public class TrainingGame : MonoBehaviour
                         if (playerOneChosen == false)
                         {
                             bagStart1 = true;
+                            //player1PunchbagAnim.SetBool("PullupTraining", true);
                             playerOneChosen = true;
                         }
 
@@ -316,6 +329,9 @@ public class TrainingGame : MonoBehaviour
 
                             if (Input.GetKeyDown(o_Action))
                             {
+                                //player1PunchbagAnim.SetBool("isGoingDown", false);
+                                //player1PunchbagAnim.SetBool("isPullingUp", true);
+
                                 bagStart1 = false;
                             }
                         }
